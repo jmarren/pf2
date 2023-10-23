@@ -2,26 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.partial-border {
+  position: relative;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.partial-border::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 90%; /* change as needed */
+  height: 2px; /* thickness of the border */
+  background: #000; /* border color */
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.partial-borders {
+  position: relative;
+}
+
+.partial-borders::before,
+.partial-borders::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  width: 90%;  /* Change to desired length */
+  height: 2px; /* Thickness of the border */
+  background: #000; /* Border color */
+}
+
+.partial-borders::before {
+  top: 0;
+}
+
+.partial-borders::after {
+  bottom: 0;
+}
+
+.vertical-border {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 2px; /* Thickness of the border */
+  height: 90%; /* Change to desired length */
+  background: #000; /* Border color */
+}
+
+.left-border {
+  left: 0;
+}
+
+.right-border {
+  right: 0;
+}
+
+
+.texture-hero {
+  background-color: #e1eced;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23080a0a' fill-opacity='1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 }
