@@ -1,6 +1,7 @@
 import DotsOnCanvas from "@/components/NameDrawing"
 import DotDrawer from "@/components/GreatWaveAura"
 import PartialBorderDiv from "@/components/PartialBorders";
+// import { Suspense } from "react";
 
 function Page() {
     return (
@@ -12,7 +13,8 @@ function Page() {
               <DotDrawer />
               <div className='w-[95.5vw] h-[95.5vh]  top-[2.25vh] left-[2.25vw] relative '>
 
-              <div className=' h-10   justify-between top-0 flex flex-row '>
+              {/* <Suspense > */}
+              {/* <div className=' h-10   justify-between top-0 flex flex-row '>
                 <div className='w-[50%] h-10 flex-row'>
                   <DotsOnCanvas fontSize={75} textColor={'gray'} text={'John Marren'} className=''/>
                 </div>
@@ -25,8 +27,8 @@ function Page() {
                 <div className='flex flex-row h-10 w-36'><DotsOnCanvas fontSize={150} text={'Projects'} textColor={'gray'}/></div>
                 <div className='flex flex-row h-10 w-36 '> <DotsOnCanvas fontSize={150} text={'Resume'} textColor={'gray'}/></div>
                 <div className='flex flex-row h-10 w-36 '><DotsOnCanvas fontSize={150} text={'Github'} textColor={'gray'}/></div>
-              </div>
-
+              </div> */}
+              {/* </Suspense> */}
               </div>
 
             </div>

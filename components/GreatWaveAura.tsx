@@ -11,7 +11,7 @@ const DotDrawer: React.FC = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', {willReadFrequently: true});
     if (!ctx) return;
 
     const img = new Image();
@@ -51,18 +51,41 @@ const DotDrawer: React.FC = () => {
 
       offscreenCtx.drawImage(img, xCenter, yCenter, scaledWidth, scaledHeight );
       const imgData = offscreenCtx.getImageData(0, 0, offscreenCanvas.width, offscreenCanvas.height).data;
-      console.log(imgData);
 
       const imgDataVerticalLeft = offscreenCtx.getImageData(xCenter + 1, 0, 1, offscreenCanvas.height).data;
       const imgDataVerticalRight = offscreenCtx.getImageData(xCenter + scaledWidth - 1, 0, 1, offscreenCanvas.height).data;
       const imgDataHorizontalTop = offscreenCtx.getImageData(0, yCenter + 1, offscreenCanvas.width, 1).data;
       const imgDataHorizontalBottom = offscreenCtx.getImageData(0, yCenter + scaledHeight - 1, offscreenCanvas.width, 1).data;
+      const imgDataBottomLeft = offscreenCtx.getImageData(xCenter + 1, yCenter + scaledHeight - 1, 1, 1).data;
+      const imgDataTopLeft = offscreenCtx.getImageData(xCenter + 1,yCenter + 1, 1, 1 ).data;
+      const imgDataTopRight = offscreenCtx.getImageData(xCenter + scaledWidth - 1, yCenter + 10, -1, 1).data;
+      const imgDataBottomRight = offscreenCtx.getImageData(xCenter + scaledWidth - 20, yCenter + scaledHeight - 10, 1, 1 ).data;
 
-console.log(imgDataVerticalLeft);
+
+    
+      // BottomLeft
+      const bottomLeftRed = imgDataBottomLeft[0];
+      const bottomLeftGreen = imgDataBottomLeft[1];
+      const bottomLeftBlue = imgDataBottomLeft[2];
+      // TopLeft
+      const topLeftRed = imgDataTopLeft[0];
+      const topLeftGreen = imgDataTopLeft[1];
+      const topLeftBlue = imgDataTopLeft[2];
+      // Top Right
+      const topRightRed = imgDataTopRight[0];
+      const topRightGreen = imgDataTopRight[1];
+      const topRightBlue = imgDataTopRight[2];
+      // Bottom Right
+      const bottomRightRed = imgDataBottomRight[0];
+      const bottomRightGreen = imgDataBottomRight[1];
+      const bottomRightBlue = imgDataBottomRight[2];
+
+
 
 const totalDots = 10000000; // Number of dots
 const dotsPerBatch = 1000; // Number of dots to be drawn in one go
-const radius = 5;
+// const radius = 5;
+const radius = 4;
         
 const drawDotBatch = () => {
     for (let i = 0; i < dotsPerBatch && localCount < totalDots; i++) {
@@ -71,6 +94,8 @@ const drawDotBatch = () => {
         const maxAuraDistance = 150;  
         const distanceWeight = Math.random() * Math.random();
 
+
+        /* Debug Dots
         ctx.fillStyle = 'red'; // color for the bottom-right corner
         ctx.fillRect(canvas.width - 5, canvas.height - 5, 10, 10); // 10x10 square dot
 
@@ -84,10 +109,18 @@ const drawDotBatch = () => {
         ctx.fillStyle = 'green'; // color for scaled dimensions
         ctx.fillRect(xCenter + scaledWidth, yCenter + scaledHeight, 10, 10); // 10x10 square dot
 
+
+        */
         if (count >= totalDots) return;
 
         const x = Math.floor(Math.random() * canvas.width);
         const y = Math.floor(Math.random() * canvas.height);
+
+        
+
+
+
+
 
 
 
@@ -156,8 +189,55 @@ const drawDotBatch = () => {
                 ctx.arc(positionX, auraY ,radius * Math.random(), 0, Math.PI * 2  );
                 ctx.fill();
                 }
-            }   
-        } else {   // Regular Drawing
+            } 
+        if (Math.random() < 0.05) { // Corners
+            if (Math.random() > 0.5) { // Left
+                if (Math.random() > 0.5) { // Top Left
+                    const maxAuraDistance = 100; 
+                    const auraX = Math.random() * xCenter; // Generate aura to the left
+                    const auraY = yCenter - (Math.random() * Math.random() * maxAuraDistance); // Generate aura above
+                
+                    ctx.fillStyle = `rgb(${topLeftRed}, ${topLeftGreen}, ${topLeftBlue})`;
+                    ctx.beginPath();
+                    ctx.arc(auraX, auraY, radius * Math.random(), 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                
+                else { // Bottom Left
+                    const maxAuraDistance = 100; 
+                    const auraX = Math.random() * xCenter; // Generate aura to the left
+                    const auraY = yCenter + scaledHeight + (Math.random() * Math.random() * maxAuraDistance); // Generate aura below
+                
+                    ctx.fillStyle = `rgb(${bottomLeftRed}, ${bottomLeftGreen}, ${bottomLeftBlue})`;
+                    ctx.beginPath();
+                    ctx.arc(auraX, auraY, radius * Math.random(), 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            else { // Right
+                if (Math.random() > 0.5) { // Top Right
+                    const maxAuraDistance = 100; 
+                    const auraX = xCenter + scaledWidth + (Math.random() * Math.random() * maxAuraDistance);// Generate aura to the Right
+                    const auraY = Math.random() * yCenter // Generate aura above
+                
+                    ctx.fillStyle = `rgb(${topRightRed}, ${topRightGreen}, ${topRightBlue})`;
+                    ctx.beginPath();
+                    ctx.arc(auraX, auraY, radius * Math.random(), 0, Math.PI * 2);
+                    ctx.fill();
+                } else { // Bottom Right
+                    const maxAuraDistance = 100; 
+                    const auraX = xCenter + scaledWidth + (Math.random() * Math.random()  * maxAuraDistance);// Generate aura to the Right
+                    const auraY =  (scaledHeight + yCenter) + (Math.random() * Math.random() * maxAuraDistance) // Generate aura above
+                
+                    ctx.fillStyle = `rgb(${bottomRightRed}, ${bottomRightGreen}, ${bottomRightBlue})`;
+                    ctx.beginPath();
+                    ctx.arc(auraX, auraY, radius * Math.random(), 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+        }
+        } else {   // Main Drawing
           const index = (y * canvas.width + x) * 4;
           if (imgData[index + 3] > 0) {
             const red = imgData[index];
@@ -169,6 +249,8 @@ const drawDotBatch = () => {
             ctx.arc(x, y, radius * Math.random(), 0, Math.PI * 2);
             ctx.fill();
             }
+
+
         }   
 
         localCount++;

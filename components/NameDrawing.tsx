@@ -87,8 +87,6 @@ useEffect(() => {
 
       }
     });
-  
-// }, []);
 
 
 const scaleCanvas = () => {
@@ -114,9 +112,12 @@ const scaleCanvas = () => {
 }, []);
 
 
-return <canvas ref={canvasRef} width={canvasWidth}  height={canvasHeight}>
-{/* <svg href={oneData}></svg> */}
-</canvas>;
+return (
+<canvas 
+    ref={canvasRef} 
+    width={canvasWidth}  
+    height={canvasHeight}>
+</canvas>)
 };
 
 export default DotsOnCanvas;
