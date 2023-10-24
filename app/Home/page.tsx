@@ -8,7 +8,7 @@ function Page() {
 
           <div className=' w-full h-full m-auto z-10 relative'>
           <div className='w-full h-full mx-auto justify-center items-center  absolute'>
-            <div className='absolute justify-center items-center w-full'>
+            <div className='absolute justify-center items-center w-full h-full'>
               <DotDrawer />
               <div className='w-[95.5vw] h-[95.5vh]  top-[2.25vh] left-[2.25vw] relative '>
 

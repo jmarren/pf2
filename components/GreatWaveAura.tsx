@@ -4,19 +4,6 @@ import React, { useEffect, useRef, useState } from 'react';
 const DotDrawer: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [count, setCount] = useState(0);
-    // useEffect(() => {
-    //     console.log(radius)
-    //     console.log(count)
-    //     if (count == 50) {
-    //         console.log('radius now 10')
-    //         setRadius(10);
-    //     }
-    //     if (count ===  100) {
-    //         console.log('radius now 5')
-    //         setRadius(5);
-    //     }
-    // }, [count])
-
   
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -40,7 +27,7 @@ const DotDrawer: React.FC = () => {
         const canvasHeight = canvas.height;
 
         let scaledWidth: number, scaledHeight: number;
-        const paddingFactor = 0.75
+        const paddingFactor = 0.85
 
            if (canvasWidth / canvasHeight > aspectRatio) {
             scaledHeight = canvasHeight * paddingFactor;
@@ -67,23 +54,16 @@ const DotDrawer: React.FC = () => {
       const imgData = offscreenCtx.getImageData(0, 0, offscreenCanvas.width, offscreenCanvas.height).data;
       console.log(imgData);
 
-      const imgDataVerticalLeft = offscreenCtx.getImageData(xCenter, 0, 1, offscreenCanvas.height).data;
-      const imgDataVerticalRight = offscreenCtx.getImageData(xCenter + scaledWidth, 0, 1, offscreenCanvas.height).data;
-      const imgDataHorizontalTop = offscreenCtx.getImageData(0, yCenter, offscreenCanvas.width, 1).data;
-      const imgDataHorizontalBottom = offscreenCtx.getImageData(0, yCenter + scaledHeight, offscreenCanvas.width, 1).data;
+      const imgDataVerticalLeft = offscreenCtx.getImageData(xCenter + 1, 0, 1, offscreenCanvas.height).data;
+      const imgDataVerticalRight = offscreenCtx.getImageData(xCenter + scaledWidth - 1, 0, 1, offscreenCanvas.height).data;
+      const imgDataHorizontalTop = offscreenCtx.getImageData(0, yCenter + 1, offscreenCanvas.width, 1).data;
+      const imgDataHorizontalBottom = offscreenCtx.getImageData(0, yCenter + scaledHeight - 1, offscreenCanvas.width, 1).data;
 
 console.log(imgDataVerticalLeft);
 
-      const totalDots = 1000000; // Number of dots
-    //   const intervalTime = 100000 / totalDots; // 10 seconds
+    const totalDots = 1000000; // Number of dots
     const intervalTime = 0.001
-      const radius = 8;
-    // const radius = 15;
-
-
-
-
-
+    const radius = 8;
       const drawDot = () => {
 
         const auraProb = 0.3;
@@ -110,106 +90,92 @@ console.log(imgDataVerticalLeft);
 
 
 
-        // Bottom Aura 
-        if (Math.random() < 0.05) {
-            const auraX = x;
-    
-            const mappedX = Math.floor(auraX * (offscreenCanvas.width / canvas.width));
-            const index = mappedX * 4; // Each pixel has 4 values: R, G, B, and A
-            const red = imgDataHorizontalBottom[index];
-            const green = imgDataHorizontalBottom[index + 1];
-            const blue = imgDataHorizontalBottom[index + 2];
-            const alpha = imgDataHorizontalBottom[index + 3];
-            
-            // let strength = scaledHeight / Math.abs(scaledHeight / 2 - auraX);
-    
-            let positionY = yCenter + scaledHeight +  maxAuraDistance * distanceWeight;
-            ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha * 2/ (255 * distanceWeight)})`;
-            ctx.beginPath();
-            ctx.arc(auraX, positionY ,radius * Math.random(), 0, Math.PI * 2  );
-            ctx.fill();
-        }         
-
-
-
-        // Top Aura
-        if (Math.random() < 0.05) {
-  
-            const auraX = x;
-    
-            const mappedX = Math.floor(auraX * (offscreenCanvas.width / canvas.width));
-            const index = mappedX * 4; // Each pixel has 4 values: R, G, B, and A
-            const red = imgDataHorizontalTop[index];
-            const green = imgDataHorizontalTop[index + 1];
-            const blue = imgDataHorizontalTop[index + 2];
-            const alpha = imgDataHorizontalTop[index + 3];
-            
-            // let strength = scaledHeight / Math.abs(scaledHeight / 2 - auraX);
-    
-            let positionY = yCenter -  maxAuraDistance * distanceWeight;
-            ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha * 2/ (255 * distanceWeight)})`;
-            ctx.beginPath();
-            ctx.arc(auraX, positionY ,radius * Math.random(), 0, Math.PI * 2  );
-            ctx.fill();
-        }         
-
-
-
-        // Right Aura 
-        if (Math.random() < 0.05) {
-  
-            const auraY = y;
-    
-            const mappedY = Math.floor(auraY * (offscreenCanvas.height / canvas.height));
-            const index = mappedY * 4; // Each pixel has 4 values: R, G, B, and A
-            const red = imgDataVerticalRight[index];
-            const green = imgDataVerticalRight[index + 1];
-            const blue = imgDataVerticalRight[index + 2];
-            const alpha = imgDataVerticalRight[index + 3];
-            
-            let strength = scaledHeight / Math.abs(scaledHeight / 2 - auraY);
-    
-            let positionX = xCenter + scaledWidth +  maxAuraDistance * distanceWeight;
-            ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha / (255 * distanceWeight)})`;
-            ctx.beginPath();
-            ctx.arc(positionX, auraY ,radius * Math.random(), 0, Math.PI * 2  );
-            ctx.fill();
-        } 
-
-        // Left Aura
-        if (Math.random() < 0.05) {
-  
-        const auraY = y;
-
-        const mappedY = Math.floor(auraY * (offscreenCanvas.height / canvas.height));
-        const index = mappedY * 4; // Each pixel has 4 values: R, G, B, and A
-        const red = imgDataVerticalLeft[index];
-        const green = imgDataVerticalLeft[index + 1];
-        const blue = imgDataVerticalLeft[index + 2];
-        const alpha = imgDataVerticalLeft[index + 3];
+        if (Math.random() < 0.05) {     
+            if (Math.random() > 0.5) {// Top & Bottom     
+                if (Math.random() > 0.5) {     // Top Aura 
+                const auraX = x;
         
-        let strength = scaledHeight / Math.abs(scaledHeight / 2 - auraY);
+                const mappedX = Math.floor(auraX * (offscreenCanvas.width / canvas.width));
+                const index = mappedX * 4; 
+                const red = imgDataHorizontalTop[index];
+                const green = imgDataHorizontalTop[index + 1];
+                const blue = imgDataHorizontalTop[index + 2];
+                const alpha = imgDataHorizontalTop[index + 3];
+                    
+                let positionY = yCenter - (Math.random() * Math.random() * maxAuraDistance);
+                ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(auraX, positionY ,radius * Math.random(), 0, Math.PI * 2  );
+                ctx.fill();
+                }  else {       // Bottom Aura 
+                const auraX = x;
+        
+                const mappedX = Math.floor(auraX * (offscreenCanvas.width / canvas.width));
+                const index = mappedX * 4; 
+                const red = imgDataHorizontalBottom[index];
+                const green = imgDataHorizontalBottom[index + 1];
+                const blue = imgDataHorizontalBottom[index + 2];
+                const alpha = imgDataHorizontalBottom[index + 3];
+                    
+                let positionY = yCenter + scaledHeight +  (Math.random() * Math.random() * maxAuraDistance);
+                ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(auraX, positionY ,radius * Math.random(), 0, Math.PI * 2  );
+                ctx.fill();
+                }
+            } else {
+                if (Math.random() > 0.5) {      // Right Aura 
+                const auraY = y;
+    
+                const mappedY = Math.floor(auraY * (offscreenCanvas.height / canvas.height));
+                const index = mappedY * 4; 
+                const red = imgDataVerticalRight[index];
+                const green = imgDataVerticalRight[index + 1];
+                const blue = imgDataVerticalRight[index + 2];
+                const alpha = imgDataVerticalRight[index + 3];
+                    
+                let positionX = xCenter + scaledWidth + (Math.random() * Math.random() * maxAuraDistance);
+                ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(positionX, auraY ,radius * Math.random(), 0, Math.PI * 2  );
+                ctx.fill();
+                } else {        // Left Aura
+                const auraY = y;
 
-        let positionX = xCenter - maxAuraDistance * distanceWeight;
-        ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha / (255 * distanceWeight)})`;
-        // ctx.fillStyle = 'red'
-        ctx.beginPath();
-        ctx.arc(positionX, auraY ,radius * Math.random(), 0, Math.PI * 2  );
-        ctx.fill();
-    }
-  
+                const mappedY = Math.floor(auraY * (offscreenCanvas.height / canvas.height));
+                const index = mappedY * 4; 
+                const red = imgDataVerticalLeft[index];
+                const green = imgDataVerticalLeft[index + 1];
+                const blue = imgDataVerticalLeft[index + 2];
+                const alpha = imgDataVerticalLeft[index + 3];
+                
+                let positionX = xCenter -  (Math.random() * Math.random() * maxAuraDistance);
+                ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(positionX, auraY ,radius * Math.random(), 0, Math.PI * 2  );
+                ctx.fill();
+                }
+            }   
+        } else {   // Regular Drawing
           const index = (y * canvas.width + x) * 4;
           if (imgData[index + 3] > 0) {
             const red = imgData[index];
             const green = imgData[index + 1];
             const blue = imgData[index + 2];
             ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
-            // ctx.fillStyle = 'red'
             ctx.fillRect(x, y, 1, 1);
             ctx.beginPath();
             ctx.arc(x, y, radius * Math.random(), 0, Math.PI * 2);
             ctx.fill();
-          }
+            }
+
+        }        
+
+
+
+        
+
+ 
         
        setCount(prev => prev + 1)
         setTimeout(drawDot, intervalTime);
