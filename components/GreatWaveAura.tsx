@@ -4,6 +4,8 @@ import React, { useEffect, useRef, useState } from 'react';
 const DotDrawer: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [count, setCount] = useState(0);
+  let localCount = 0; // Local count variable
+
   
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -18,11 +20,8 @@ const DotDrawer: React.FC = () => {
 
     img.onload = () => {
         const aspectRatio = (img.width as number) / (img.height as number);
-     
-        
         canvas.width = (window.innerWidth) * 0.85;
         canvas.height =  ( window.innerHeight) * 0.85;
-
         const canvasWidth = canvas.width;
         const canvasHeight = canvas.height;
 
@@ -61,13 +60,15 @@ const DotDrawer: React.FC = () => {
 
 console.log(imgDataVerticalLeft);
 
-    const totalDots = 1000000; // Number of dots
-    const intervalTime = 0.001
-    const radius = 8;
-      const drawDot = () => {
+const totalDots = 10000000; // Number of dots
+const dotsPerBatch = 1000; // Number of dots to be drawn in one go
+const radius = 5;
+        
+const drawDotBatch = () => {
+    for (let i = 0; i < dotsPerBatch && localCount < totalDots; i++) {
 
         const auraProb = 0.3;
-        const maxAuraDistance = 100;  
+        const maxAuraDistance = 150;  
         const distanceWeight = Math.random() * Math.random();
 
         ctx.fillStyle = 'red'; // color for the bottom-right corner
@@ -168,22 +169,20 @@ console.log(imgDataVerticalLeft);
             ctx.arc(x, y, radius * Math.random(), 0, Math.PI * 2);
             ctx.fill();
             }
+        }   
 
-        }        
+        localCount++;
+        setCount(prev => prev + dotsPerBatch);
+    }   
+    
+    
+    if (localCount < totalDots) {
+        requestAnimationFrame(drawDotBatch);
+    }
+}
 
-
-
-        
-
- 
-        
-       setCount(prev => prev + 1)
-        setTimeout(drawDot, intervalTime);
-      };
-
-      drawDot();
-    };
-  }, []);
+        drawDotBatch();
+   }   }, []);
 
   return <canvas ref={canvasRef}  className='rounded-md w-full absolute '></canvas>;
 };

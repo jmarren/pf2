@@ -22,9 +22,9 @@ function Page() {
               </div>
 
               <div className='flex flex-row ml-[50vw] mt-[10vh] '>
-                <div className='flex flex-row h-10'><DotsOnCanvas fontSize={100} text={'Projects'} textColor={'gray'}/></div>
-                <div className='flex flex-row h-10 '> <DotsOnCanvas fontSize={100} text={'Resume'} textColor={'gray'}/></div>
-                <div className='flex flex-row h-10 '><DotsOnCanvas fontSize={100} text={'Github'} textColor={'gray'}/></div>
+                <div className='flex flex-row h-10 w-36'><DotsOnCanvas fontSize={150} text={'Projects'} textColor={'gray'}/></div>
+                <div className='flex flex-row h-10 w-36 '> <DotsOnCanvas fontSize={150} text={'Resume'} textColor={'gray'}/></div>
+                <div className='flex flex-row h-10 w-36 '><DotsOnCanvas fontSize={150} text={'Github'} textColor={'gray'}/></div>
               </div>
 
               </div>

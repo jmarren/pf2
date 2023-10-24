@@ -1,9 +1,12 @@
 'use client'
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import opentype from 'opentype.js';
 
 const DotsOnCanvas: React.FC = ({text, textColor, fontSize}) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [canvasWidth, setCanvasWidth] = useState(window.innerWidth);
+  const [canvasHeight, setCanvasHeight] = useState(window.innerHeight);
+
 
   // Function to shuffle an array
   const shuffle = (array: any[]) => {
@@ -16,6 +19,7 @@ const DotsOnCanvas: React.FC = ({text, textColor, fontSize}) => {
     return array;
   }
 
+//   const drawCanvas = () => {
 useEffect(() => {
     opentype.load('/Roboto-Medium.ttf', (err, font) => {
       if (err) {
@@ -73,7 +77,7 @@ useEffect(() => {
           setTimeout(() => {
             ctx.fillStyle = textColor;
             ctx.beginPath();
-            ctx.arc(point.x, point.y, 5, 0, Math.PI * 2);
+            ctx.arc(point.x, point.y, 3, 0, Math.PI * 2);
             ctx.fill();
           }, index * interval);
         });    
@@ -83,9 +87,34 @@ useEffect(() => {
 
       }
     });
+  
+// }, []);
+
+
+const scaleCanvas = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Update canvas dimensions based on window size
+    setCanvasWidth(window.innerWidth);
+    setCanvasHeight(window.innerHeight);
+
+    // Scale the context to fit the new dimensions
+    ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform
+    ctx.scale(window.innerWidth / 1000, window.innerHeight / 200); // Original canvas dimensions: 1000x200
+  };
+
+  window.addEventListener('resize', scaleCanvas);
+
+  return () => {
+    window.removeEventListener('resize', scaleCanvas);
+  };
 }, []);
 
-return <canvas ref={canvasRef} width={1000} height={200}>
+
+return <canvas ref={canvasRef} width={canvasWidth}  height={canvasHeight}>
 {/* <svg href={oneData}></svg> */}
 </canvas>;
 };
