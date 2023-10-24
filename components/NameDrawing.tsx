@@ -19,7 +19,56 @@ const DotsOnCanvas: React.FC = ({text, textColor, fontSize}) => {
     return array;
   }
 
-//   const drawCanvas = () => {
+
+
+  useEffect(() => {
+    // Debounce function
+    const debounce = (func, delay) => {
+      let debounceTimer;
+      return function() {
+        const context = this;
+        const args = arguments;
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func.apply(context, args), delay);
+      };
+    };
+
+    const scaleCanvas = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+        
+            // Update canvas dimensions based on window size
+            setCanvasWidth(window.innerWidth);
+            setCanvasHeight(window.innerHeight);
+        
+            // Scale the context to fit the new dimensions
+            ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform
+            ctx.scale(window.innerWidth / 1000, window.innerHeight / 200); // Original canvas dimensions: 1000x200
+    };
+
+    const debouncedScaleCanvas = debounce(scaleCanvas, 150);
+    window.addEventListener('resize', debouncedScaleCanvas);
+
+    return () => {
+      window.removeEventListener('resize', debouncedScaleCanvas);
+    };
+  }, []);
+
+
+  const drawDots = (allPoints, ctx, currentIndex = 0) => {
+    if (currentIndex >= allPoints.length) return;
+
+    ctx.fillStyle = textColor;
+    ctx.beginPath();
+    ctx.arc(allPoints[currentIndex].x, allPoints[currentIndex].y, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    requestAnimationFrame(() => drawDots(allPoints, ctx, currentIndex + 1));
+  };
+
+
 useEffect(() => {
     opentype.load('/Roboto-Medium.ttf', (err, font) => {
       if (err) {
@@ -69,55 +118,21 @@ useEffect(() => {
             }
           }
         }
-
-
         const allPoints = shuffle([...points, ...outsidePoints]);
-
-        allPoints.forEach((point, index) => {
-          setTimeout(() => {
-            ctx.fillStyle = textColor;
-            ctx.beginPath();
-            ctx.arc(point.x, point.y, 3, 0, Math.PI * 2);
-            ctx.fill();
-          }, index * interval);
-        });    
- 
-
-
-
+        drawDots(allPoints, ctx)
       }
     });
 
-
-const scaleCanvas = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // Update canvas dimensions based on window size
-    setCanvasWidth(window.innerWidth);
-    setCanvasHeight(window.innerHeight);
-
-    // Scale the context to fit the new dimensions
-    ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform
-    ctx.scale(window.innerWidth / 1000, window.innerHeight / 200); // Original canvas dimensions: 1000x200
-  };
-
-  window.addEventListener('resize', scaleCanvas);
-
-  return () => {
-    window.removeEventListener('resize', scaleCanvas);
-  };
 }, []);
 
-
 return (
+    <>
 <canvas 
     ref={canvasRef} 
     width={canvasWidth}  
     height={canvasHeight}>
-</canvas>)
+</canvas><link rel="preload" href="/Roboto-Medium.ttf" as="font" type="font/ttf" ></link>
+</>)
 };
 
 export default DotsOnCanvas;
