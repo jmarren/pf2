@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const DotDrawer: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [count, setCount] = useState(0);
+//   const [count, setCount] = useState(0);
   let localCount = 0; // Local count variable
   const [redraw, setRedraw] = useState(false);
   const [dimensions, setDimensions] = useState({
@@ -41,7 +41,7 @@ const DotDrawer: React.FC = () => {
             scaledWidth = dimensions.height * aspectRatio;
           } else {
             scaledWidth = dimensions.width * paddingFactor;
-            scaledHeight = dimensions.width / aspectRatio;
+            scaledHeight = (dimensions.width / aspectRatio) *0.9;
           }
           console.log(scaledWidth);
           console.log(scaledHeight); 
@@ -89,18 +89,18 @@ const DotDrawer: React.FC = () => {
       const bottomRightGreen = imgDataBottomRight[1];
       const bottomRightBlue = imgDataBottomRight[2];
 
-   ctx.fillStyle = 'red'; // color for the bottom-right corner
-        ctx.fillRect(dimensions.width - 5, dimensions.height - 5, 10, 10); // 10x10 square dot
+//    ctx.fillStyle = 'red'; // color for the bottom-right corner
+//         ctx.fillRect(dimensions.width - 5, dimensions.height - 5, 10, 10); // 10x10 square dot
 
-        // Drawing a point at xCenter, yCenter
-        ctx.fillStyle = 'blue'; // color for the center
-        ctx.beginPath();
-        ctx.arc(xCenter, yCenter, 5, 0, Math.PI * 2); // 5 is the radius of the dot
-        ctx.fill();
+//         // Drawing a point at xCenter, yCenter
+//         ctx.fillStyle = 'blue'; // color for the center
+//         ctx.beginPath();
+//         ctx.arc(xCenter, yCenter, 5, 0, Math.PI * 2); // 5 is the radius of the dot
+//         ctx.fill();
 
-        // Drawing a point representing scaledWidth, scaledHeight from the top-left corner
-        ctx.fillStyle = 'green'; // color for scaled dimensions
-        ctx.fillRect(xCenter + scaledWidth, yCenter + scaledHeight, 100, 100); // 10x10 square dot
+//         // Drawing a point representing scaledWidth, scaledHeight from the top-left corner
+//         ctx.fillStyle = 'green'; // color for scaled dimensions
+//         ctx.fillRect(xCenter + scaledWidth, yCenter + scaledHeight, 100, 100); // 10x10 square dot
 
 
 const totalDots = 10000000; // Number of dots
@@ -109,7 +109,7 @@ const dotsPerBatch = 1000; // Number of dots to be drawn in one go
 const radius = 4;
         // /*
 const drawDotBatch = () => {
-    for (let i = 0; i < dotsPerBatch && localCount < totalDots && !newCall; i++) {
+    for (let i = 0; i < dotsPerBatch && !newCall; i++) {
 
         const auraProb = 0.3;
         const maxAuraDistance = 150;  
@@ -117,7 +117,7 @@ const drawDotBatch = () => {
 
      
 
-        if (count >= totalDots) return;
+        // if (count >= totalDots) return;
 
         const x = Math.floor(Math.random() * dimensions.width);
         const y = Math.floor(Math.random() * dimensions.height);
@@ -142,7 +142,7 @@ const drawDotBatch = () => {
                 }  else {       // Bottom Aura 
                 const auraX = x;
         
-                const mappedX = Math.floor(auraX * (offscreenCanvas.width / dimensions));
+                const mappedX = Math.floor(auraX * (offscreenCanvas.width / dimensions.width));
                 const index = mappedX * 4; 
                 const red = imgDataHorizontalBottom[index];
                 const green = imgDataHorizontalBottom[index + 1];
@@ -251,8 +251,8 @@ const drawDotBatch = () => {
 
         }   
 
-        localCount++;
-        setCount(prev => prev + dotsPerBatch);
+        // localCount++;
+        // setCount(prev => prev + dotsPerBatch);
     }   
     
     
@@ -294,7 +294,7 @@ useEffect(() => {
     }
  }, [dimensions]);
 
-  return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen border border-red-500 w-full absolute '></canvas>;
+  return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute '></canvas>;
 };
 
 export default DotDrawer;

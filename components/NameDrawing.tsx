@@ -62,14 +62,14 @@ const [canvasHeight, setCanvasHeight] = useState(fontSize * 2);
 
     ctx.fillStyle = textColor;
     ctx.beginPath();
-    ctx.arc(allPoints[currentIndex].x, allPoints[currentIndex].y, 2.5, 0, Math.PI * 2);
+    ctx.arc(allPoints[currentIndex].x, allPoints[currentIndex].y, 1.5, 0, Math.PI * 2);
     ctx.fill();
  
-    let dotsToDraw = 10;
+    let dotsToDraw = 100;
     while (dotsToDraw-- && currentIndex < allPoints.length) {
         currentIndex++;
         ctx.beginPath();
-        ctx.arc(allPoints[currentIndex].x, allPoints[currentIndex].y, 2.5, 0, Math.PI * 2);
+        ctx.arc(allPoints[currentIndex].x, allPoints[currentIndex].y, 1.5, 0, Math.PI * 2);
         ctx.fill();
     }
 
@@ -143,8 +143,9 @@ useEffect(() => {
 }, []);
 
 
-const dynamicClass = header ? ' w-[175px] h-[55px] sm:w-[150px] sm:h-[60px] md:h-[120px] md:w-[300px]' 
+const dynamicClass = header ? ' w-[500px] h-[70px] sm:w-[600px] sm:h-[90px] md:w-[750px] md:h-[120px]' 
         : ' w-[80px] h-[40px] sm:w-[100px] sm:h-[50px] md:w-[120px] md:h-[60px] lg:w-[150px] lg:h-[75px] '
+
 
 return (
     <>

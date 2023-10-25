@@ -14,19 +14,19 @@ function Page() {
               <div className='w-[95.5vw] h-[95.5vh]  top-[2.25vh] left-[2.25vw] relative '>
 
               {/* <Suspense > */}
-              <div className=' h-12  sm:h-16  md:h-28 lg:h-40 justify-between top-0 flex flex-row'>
-                <div className='w-[50%] h-12 justify-start'>
-                  <DotsOnCanvas fontSize={50} textColor={'gray'} text={'John Marren'} header={true} className=''/>
+              <div className='h-12  sm:h-16  md:h-28  justify-between top-0 flex flex-row'>
+                <div className=' ml-8 w-full h-12 justify-start'>
+                  <DotsOnCanvas fontSize={100} textColor={'#98a3a1'} text={'John Marren - Web Developer'} header={true} className=''/>
                 </div>
-                <div className='w-[50%] h-12 justify-end'>
+                {/* <div className='w-[50%] h-12 justify-end'>
                   <DotsOnCanvas fontSize={50} textColor={'gray'} text={'Web Developer'} header={true} className=''/>
-                </div>
+                </div> */}
               </div>
 
-              <div className='flex flex-row ml-[50vw]'>
-                <div className='flex flex-row h-10 '><DotsOnCanvas fontSize={50} text={'Projects'} textColor={'gray'} header={false} /></div>
-                <div className='flex flex-row h-10 '> <DotsOnCanvas fontSize={50} text={'Resume'} textColor={'gray'} header={false} /></div>
-                <div className='flex flex-row h-10 '><DotsOnCanvas fontSize={50} text={'Github'} textColor={'gray'} header={false} /></div>
+              <div className='flex flex-row ml-[50vw] sm:ml-[55vw]'>
+                <div className='flex flex-row h-10 '><DotsOnCanvas fontSize={100} text={'Projects'} textColor={'#98a3a1'} header={false} /></div>
+                <div className='flex flex-row h-10 '> <DotsOnCanvas fontSize={100} text={' Resume '} textColor={'#98a3a1'} header={false} /></div>
+                <div className='flex flex-row h-10 '><DotsOnCanvas fontSize={100} text={' Github '} textColor={'#98a3a1'} header={false} /></div>
               </div>
               {/* </Suspense> */}
               </div>
