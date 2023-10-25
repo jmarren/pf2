@@ -1,5 +1,5 @@
 import DotsOnCanvas from "@/components/NameDrawing"
-import DotDrawer from "@/components/GreatWaveAura"
+import DotDrawer from "@/components/GreatWaveResize"
 import PartialBorderDiv from "@/components/PartialBorders";
 // import { Suspense } from "react";
 
@@ -14,20 +14,20 @@ function Page() {
               <div className='w-[95.5vw] h-[95.5vh]  top-[2.25vh] left-[2.25vw] relative '>
 
               {/* <Suspense > */}
-              <div className=' h-10   justify-between top-0 flex flex-row '>
-                <div className='w-[50%] h-10 flex-row'>
-                  <DotsOnCanvas fontSize={75} textColor={'gray'} text={'John Marren'} className=''/>
+              <div className=' h-12  sm:h-16  md:h-28 lg:h-40 justify-between top-0 flex flex-row'>
+                <div className='w-[50%] h-12 justify-start'>
+                  <DotsOnCanvas fontSize={50} textColor={'gray'} text={'John Marren'} header={true} className=''/>
                 </div>
-                <div className='w-[50%] h-10 flex-row'>
-                  <DotsOnCanvas fontSize={75} textColor={'gray'} text={'Web Developer'} className=''/>
+                <div className='w-[50%] h-12 justify-end'>
+                  <DotsOnCanvas fontSize={50} textColor={'gray'} text={'Web Developer'} header={true} className=''/>
                 </div>
               </div>
 
-              {/* <div className='flex flex-row ml-[50vw] mt-[10vh] '>
-                <div className='flex flex-row h-10 w-36'><DotsOnCanvas fontSize={150} text={'Projects'} textColor={'gray'}/></div>
-                <div className='flex flex-row h-10 w-36 '> <DotsOnCanvas fontSize={150} text={'Resume'} textColor={'gray'}/></div>
-                <div className='flex flex-row h-10 w-36 '><DotsOnCanvas fontSize={150} text={'Github'} textColor={'gray'}/></div>
-              </div> */}
+              <div className='flex flex-row ml-[50vw]'>
+                <div className='flex flex-row h-10 '><DotsOnCanvas fontSize={50} text={'Projects'} textColor={'gray'} header={false} /></div>
+                <div className='flex flex-row h-10 '> <DotsOnCanvas fontSize={50} text={'Resume'} textColor={'gray'} header={false} /></div>
+                <div className='flex flex-row h-10 '><DotsOnCanvas fontSize={50} text={'Github'} textColor={'gray'} header={false} /></div>
+              </div>
               {/* </Suspense> */}
               </div>
 

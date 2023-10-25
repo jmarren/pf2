@@ -14,18 +14,18 @@ export default function Home() {
         <div className='w-[95.5vw] h-[95.5vh]  top-[2.25vh] left-[2.25vw] relative border border-black'>
 
           <div className=' h-10   justify-between top-0 flex flex-row border border-black'>
-            <div className='w-[50%] h-10 flex-row'>
-              <DotsOnCanvas fontSize={75} textColor={'gray'} text={'John Marren'} className=''/>
+            <div className='w-[50%] h-16 flex-row'>
+              <DotsOnCanvas fontSize={150} textColor={'gray'} text={'John Marren'} className=''/>
             </div>
-            <div className='w-[50%] h-10 flex-row'>
-              <DotsOnCanvas fontSize={75} textColor={'gray'} text={'Web Developer'} className='border border-black'/>
+            <div className='w-[50%] h-16 flex-row'>
+              <DotsOnCanvas fontSize={150} textColor={'gray'} text={'Web Developer'} className='border border-black'/>
             </div>
           </div>
-          
-          <div className='flex flex-row ml-[50vw] '>
-            <div className='flex flex-row h-10'><DotsOnCanvas fontSize={100} text={'Projects'} textColor={'gray'}/></div>
-            <div className='flex flex-row h-10 '> <DotsOnCanvas fontSize={100} text={'Resume'} textColor={'gray'}/></div>
-            <div className='flex flex-row h-10 '><DotsOnCanvas fontSize={100} text={'Github'} textColor={'gray'}/></div>
+          <div className=' absolute h-10 top-[100px] z-20 border border-green-500'><DotsOnCanvas fontSize={75} text={'Projects'} textColor={'red'}/></div>
+          <div className='flex  ml-[20vw] h-10 top-28 mt-[200px] border border-green-500 '>
+            <div className='flex flex-row h-10 top-20 z-20'><DotsOnCanvas fontSize={75} text={'Projects'} textColor={'red'}/></div>
+            <div className='flex flex-row h-10 '> <DotsOnCanvas fontSize={75} text={'Resume'} textColor={'gray'}/></div>
+            <div className='flex flex-row h-10 '><DotsOnCanvas fontSize={75} text={'Github'} textColor={'gray'}/></div>
           </div>
 
       </div>
