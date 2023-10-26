@@ -1,6 +1,16 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { FontProvider } from '@/components/FontContext'
+import localFont from 'next/font/local'
+ 
+// Font files can be colocated inside of `app`
+const MigaeSemibold = localFont({
+  src: '../public/MigaeSemibold-3zd2M.otf',
+  display: 'swap',
+})
+ 
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,8 +25,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    <>
+
     <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+      <body className={MigaeSemibold.className}>
+        <FontProvider>{children}
+          </FontProvider></body>
+    </html></>
   )
 }

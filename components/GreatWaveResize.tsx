@@ -38,10 +38,10 @@ const DotDrawer: React.FC = () => {
 
            if (dimensions.width / dimensions.height > aspectRatio) {
             scaledHeight = dimensions.height * paddingFactor;
-            scaledWidth = dimensions.height * aspectRatio;
+            scaledWidth = dimensions.height * aspectRatio * 0.9;
           } else {
             scaledWidth = dimensions.width * paddingFactor;
-            scaledHeight = (dimensions.width / aspectRatio) *0.9;
+            scaledHeight = (dimensions.width / aspectRatio) * 0.9;
           }
           console.log(scaledWidth);
           console.log(scaledHeight); 
@@ -106,8 +106,9 @@ const DotDrawer: React.FC = () => {
 const totalDots = 10000000; // Number of dots
 const dotsPerBatch = 1000; // Number of dots to be drawn in one go
 // const radius = 5;
-const radius = 4;
-        // /*
+const radius = 1.8;
+// const radius = 3;
+// /*
 const drawDotBatch = () => {
     for (let i = 0; i < dotsPerBatch && !newCall; i++) {
 
@@ -152,7 +153,7 @@ const drawDotBatch = () => {
                 let positionY = yCenter + scaledHeight +  (Math.random() * Math.random() * maxAuraDistance);
                 ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
                 ctx.beginPath();
-                ctx.arc(auraX, positionY ,radius * Math.random(), 0, Math.PI * 2  );
+                ctx.arc(auraX, positionY ,  Math.random(), 0, Math.PI * 2  );
                 ctx.fill();
                 }
             } else {
