@@ -34,7 +34,7 @@ const DotDrawer: React.FC = () => {
         const canvasHeight = canvas.height;
 
         let scaledWidth: number, scaledHeight: number;
-        const paddingFactor = 0.85
+        const paddingFactor = 0.8
 
            if (dimensions.width / dimensions.height > aspectRatio) {
             scaledHeight = dimensions.height * paddingFactor;

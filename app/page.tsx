@@ -15,10 +15,10 @@ export default function Home() {
 
           <div className=' h-10   justify-between top-0 flex flex-row border border-black'>
             <div className='w-[50%] h-16 flex-row'>
-              <DotsOnCanvas fontSize={150} textColor={'gray'} text={'John Marren'} className=''/>
+              <DotsOnCanvas fontSize={75} textColor={'gray'} text={'John Marren'} className=''/>
             </div>
             <div className='w-[50%] h-16 flex-row'>
-              <DotsOnCanvas fontSize={150} textColor={'gray'} text={'Web Developer'} className='border border-black'/>
+              <DotsOnCanvas fontSize={75} textColor={'gray'} text={'Web Developer'} className='border border-black'/>
             </div>
           </div>
           <div className=' absolute h-10 top-[100px] z-20 border border-green-500'><DotsOnCanvas fontSize={75} text={'Projects'} textColor={'red'}/></div>

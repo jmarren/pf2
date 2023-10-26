@@ -4,9 +4,9 @@ import opentype from 'opentype.js';
 
 const DotsOnCanvas: React.FC = ({text, textColor, fontSize, header}) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+const lengthNum = header ? text.length : 8;
 
-
-const [canvasWidth, setCanvasWidth] = useState(fontSize * text.length / 1.5);
+const [canvasWidth, setCanvasWidth] = useState(fontSize * lengthNum / 1.5);
 const [canvasHeight, setCanvasHeight] = useState(fontSize * 2);
 
 
@@ -79,7 +79,7 @@ const [canvasHeight, setCanvasHeight] = useState(fontSize * 2);
   };
 
   const loadFontAndDrawDots = () => {
-    opentype.load('/Roboto-Medium.ttf', (err, font) => {
+    opentype.load('/MigaeSemibold-3zd2M.otf', (err, font) => {
         if (err) {
           console.error('Font could not be loaded:', err);
           return;
