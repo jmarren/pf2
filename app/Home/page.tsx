@@ -2,9 +2,12 @@ import DotsOnCanvas from "@/components/NameDrawing"
 import DotDrawer from "@/components/GreatWaveResize"
 import PartialBorderDiv from "@/components/PartialBorders";
 import { Suspense } from "react";
+import Head from 'next/head'
 
 function Page() {
     return (
+      <>
+    <Head><link rel="preload" href='/MigaeSemibold-3zd2M.otf' as="font" type="font/otf" crossOrigin="anonymous"></link></Head>
         <div className='bg-sky-100 w-full h-full min-h-screen fixed top-0'>
           <div className=' w-full h-full m-auto z-10 relative'>
           <div className='w-full h-full mx-auto justify-center items-center  absolute'>
@@ -42,7 +45,7 @@ function Page() {
  
 
           </div>
-        </div>
+        </div></>
       );
 }
 

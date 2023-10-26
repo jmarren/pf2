@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { FontProvider } from '@/components/FontContext'
 import localFont from 'next/font/local'
+
  
 // Font files can be colocated inside of `app`
 const MigaeSemibold = localFont({
