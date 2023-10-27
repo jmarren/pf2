@@ -1,8 +1,6 @@
 'use client'
-import Head from "next/head";
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useFont } from './FontContext';
-import opentype from 'opentype.js';
 
 
 interface DotsOnCanvasProps {
@@ -32,42 +30,7 @@ const [fontLoaded, setFontLoaded] = useState(false);
     return array;
   }
 
-  useEffect(() => {
-    console.log(font);
-  }, [fontLoaded])
-
-
-  useEffect(() => {
-    // Debounce function
-    const debounce = (func: Func, delay: number): Func => {
-      let debounceTimer: ReturnType<typeof setTimeout> | undefined;
-      return function(this: any, ...args: any[]): void {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => func.apply(this, args), delay);
-      };
-    };
-
-    const scaleCanvas = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            if (!ctx) return;
-
-            ctx.clearRect(0, 0, canvasWidth, canvasHeight)
-            ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform
-            loadFontAndDrawDots();
-    };
-
-    const debouncedScaleCanvas = debounce(scaleCanvas, 20);
-    window.addEventListener('resize', debouncedScaleCanvas);
-
-    return () => {
-      window.removeEventListener('resize', debouncedScaleCanvas);
-    };
-  }, []);
-
-
-  const drawDots = (allPoints: any[], ctx: CanvasRenderingContext2D , currentIndex = 0) => {
+  const drawDots = useCallback((allPoints: any[], ctx: CanvasRenderingContext2D , currentIndex = 0) => {
     if (currentIndex >= allPoints.length) return;
 
     ctx.fillStyle = textColor;
@@ -84,9 +47,9 @@ const [fontLoaded, setFontLoaded] = useState(false);
         ctx.fill();
     }
     requestAnimationFrame(() => drawDots(allPoints, ctx, currentIndex + 1));
-  };
+  }, [textColor]);
 
-  const loadFontAndDrawDots = () => {
+const loadFontAndDrawDots = useCallback(() => {
     if (font === null) return;
 
         const canvas = canvasRef.current;
@@ -130,21 +93,47 @@ const [fontLoaded, setFontLoaded] = useState(false);
           }   
           const allPoints = shuffle([...points, ...outsidePoints]);
           drawDots(allPoints, ctx)
-};
+}, [drawDots, canvasRef, font, setFontLoaded, fontSize, text])
 
+ // Debounce function
+    const debounce = (func: Func, delay: number): Func => {
+      let debounceTimer: ReturnType<typeof setTimeout> | undefined;
+      return function(this: any, ...args: any[]): void {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func.apply(this, args), delay);
+      };
+    };
 
+    const scaleCanvas = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
 
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform
+            loadFontAndDrawDots();
+    }, [canvasRef, loadFontAndDrawDots]);
 
+  const debouncedScaleCanvas = debounce(scaleCanvas, 50)
+
+  useEffect(() => {
+    window.addEventListener('resize', debouncedScaleCanvas);
+
+    return () => {
+      window.removeEventListener('resize', debouncedScaleCanvas);
+    };
+  }, [debouncedScaleCanvas]);
 
 useEffect(() => {
   loadFontAndDrawDots();
-}, []);
+}, [loadFontAndDrawDots]);
 
 
 const dynamicClass = header ? ' w-[500px] h-[70px] sm:w-[600px] sm:h-[90px] md:w-[750px] md:h-[120px]' 
         : ' w-[80px] h-[40px] sm:w-[100px] sm:h-[50px] md:w-[120px] md:h-[60px] lg:w-[150px] lg:h-[75px] '
 
-if (!font) return null;
+// if (!font) return null;
 return (
     <>
 <canvas 

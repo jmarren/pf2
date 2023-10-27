@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 
 const DotDrawer: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -14,7 +14,42 @@ const DotDrawer: React.FC = () => {
   type Func = (...args: any[]) => void;
 
 
-  const drawImage = () => {
+
+const debounce = (func: Func, delay: number): Func => {
+  let debounceTimer: ReturnType<typeof setTimeout> | undefined;
+  return function(this: any, ...args: any[]): void {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => func.apply(this, args), delay);
+  };
+};
+    const handleResize = useCallback(() => {
+        const canvas = canvasRef.current;
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                ctx?.clearRect(0, 0, canvas.width, canvas.height);
+    
+        setDimensions({
+            width: window.innerWidth * 0.85,
+            height: window.innerHeight * 0.85
+        });
+        setNewCall(true);
+    }, [canvasRef, setDimensions, setNewCall])
+
+
+    const debouncedHandleResize = debounce(handleResize, 50)
+    
+    useEffect(() => {
+      
+    window.addEventListener('resize', debouncedHandleResize);
+    
+    return () => {
+        window.removeEventListener('resize', debouncedHandleResize);
+    }
+}, [debouncedHandleResize]);
+
+
+  useEffect(() => {
+    const drawImage = () => {
     if (newCall ) return;
     setNewCall(true);
     const canvas = canvasRef.current;
@@ -249,60 +284,21 @@ const drawDotBatch = () => {
             ctx.arc(x, y, radius * Math.random(), 0, Math.PI * 2);
             ctx.fill();
             }
-
-
         }   
-
-        // localCount++;
-        // setCount(prev => prev + dotsPerBatch);
     }   
-    
-    
     if (localCount < totalDots) {
         requestAnimationFrame(drawDotBatch);
     }
 }
-
         drawDotBatch();
-        // */
   }
 }
-useEffect(() => {
-const debounce = (func: Func, delay: number): Func => {
-  let debounceTimer: ReturnType<typeof setTimeout> | undefined;
-  return function(this: any, ...args: any[]): void {
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => func.apply(this, args), delay);
-  };
-};
-    const handleResize = () => {
-        const canvas = canvasRef.current;
-                if (!canvas) return;
-                const ctx = canvas.getContext('2d');
-                ctx?.clearRect(0, 0, dimensions.width, dimensions.height);
-    
-        setDimensions({
-            width: window.innerWidth * 0.85,
-            height: window.innerHeight * 0.85
-        });
-        setNewCall(true);
-    }
-    const debouncedHandleResize = debounce(handleResize, 20);
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-        window.removeEventListener('resize', handleResize);
-    }
-}, []);
-
-
-  useEffect(() => {
-    console.log(dimensions);
+  
+  console.log(dimensions);
     if (!newCall ) {
         drawImage();
     }
- }, [dimensions]);
+ }, [dimensions, newCall, localCount]);
 
   return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute '></canvas>;
 };
