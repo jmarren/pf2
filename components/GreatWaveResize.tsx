@@ -11,6 +11,7 @@ const DotDrawer: React.FC = () => {
     height: window.innerHeight
   });
   const [newCall, setNewCall] = useState(false);
+  type Func = (...args: any[]) => void;
 
 
   const drawImage = () => {
@@ -267,16 +268,13 @@ const drawDotBatch = () => {
   }
 }
 useEffect(() => {
-    const debounce = (func, delay) => {
-        let debounceTimer;
-        return function() {
-          const context = this;
-          const args = arguments;
-          clearTimeout(debounceTimer);
-          debounceTimer = setTimeout(() => func.apply(context, args), delay);
-        };
-      };
-  
+const debounce = (func: Func, delay: number): Func => {
+  let debounceTimer: ReturnType<typeof setTimeout> | undefined;
+  return function(this: any, ...args: any[]): void {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => func.apply(this, args), delay);
+  };
+};
     const handleResize = () => {
         const canvas = canvasRef.current;
                 if (!canvas) return;

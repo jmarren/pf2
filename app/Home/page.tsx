@@ -1,15 +1,12 @@
-import DotsOnCanvas from "@/components/NameDrawing"
-import DotDrawer from "@/components/GreatWaveResize"
-// import PartialBorderDiv from "@/components/PartialBorders";
+import DotsOnCanvas from "@/components/NameDrawing";
+import DotDrawer from "@/components/GreatWaveResize";
 import { Suspense } from "react";
-import Head from 'next/head'
-import Link from 'next/link'
+import Link from 'next/link';
 
 function Page() {
     return (
       <>
    <link rel="preload" href='/MigaeSemibold-3zd2M.otf' as="font" type="font/otf" crossOrigin="anonymous"></link>
-
         <div className='bg-sky-100 w-full h-full min-h-screen fixed top-0'>
           <div className=' w-full h-full m-auto z-10 relative'>
           <div className='w-full h-full mx-auto justify-center items-center  absolute'>
@@ -18,17 +15,11 @@ function Page() {
                   <DotDrawer />
                 </Suspense >
               <div className='w-[95.5vw] h-[95.5vh]  top-[2.25vh] left-[2.25vw] relative '>
-
-              
               <div className='h-12  sm:h-16  md:h-28  justify-between top-0 flex flex-row'>
                 <div className=' ml-8 w-full h-12 justify-start'>
-                  <DotsOnCanvas fontSize={100} textColor={'#98a3a1'} text={'John Marren - Web Developer'} header={true} className=''/>
+                  <DotsOnCanvas fontSize={100} textColor={'#98a3a1'} text={'John Marren - Web Developer'} header={true} />
                 </div>
-                {/* <div className='w-[50%] h-12 justify-end'>
-                  <DotsOnCanvas fontSize={50} textColor={'gray'} text={'Web Developer'} header={true} className=''/>
-                </div> */}
               </div>
-
               <div className='flex flex-row ml-[50vw] sm:ml-[55vw]'>
                 <Link href='/portfolio'>
                 <div className='flex flex-row h-10 cursor-pointer'><DotsOnCanvas fontSize={100} text={'Projects'} textColor={'#98a3a1'} header={false} />
@@ -43,14 +34,9 @@ function Page() {
                   </div>
                 </a>
               </div>
-
               </div>
-
             </div>
-            
             </div>
- 
-
           </div>
         </div>
         </>
@@ -58,4 +44,3 @@ function Page() {
 }
 
 export default Page;
-

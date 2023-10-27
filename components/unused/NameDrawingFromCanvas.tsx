@@ -1,3 +1,4 @@
+/* 
 'use client'
 import Head from "next/head";
 import React, { useEffect, useRef, useState } from 'react';
@@ -158,7 +159,7 @@ const [ctx, setCtx] =  useState(null);
           const chanceToDrawOutside = 0.0; // 20% chance to draw a point outside the path
           
           
-          /*for (let x = bbox.x1; x <= bbox.x2; x += density) {
+          for (let x = bbox.x1; x <= bbox.x2; x += density) {
             for (let y = bbox.y1; y <= bbox.y2; y += density) {
               // const point = svgElement.createSVGPoint();
               // point.x = x;
@@ -169,9 +170,9 @@ const [ctx, setCtx] =  useState(null);
           if (pixel[3] > 0) {  // if alpha value is greater than 0, then it's inside the path
               points.push({ x, y });
   
-              /*
+      
               if (point.x && point.y && pathElement && pathElement.isPointInFill(point) ) {
-                points.push({ x, y });*/
+                points.push({ x, y });
             //   } else if (Math.random() < chanceToDrawOutside) {
             //       outsidePoints.push({x, y})
             //   }
@@ -187,8 +188,8 @@ const [ctx, setCtx] =  useState(null);
                   }
               
           }
-        //   const allPoints = ;
-        //   drawDots(allPoints, ctx)'
+          const allPoints = ;
+          drawDots(allPoints, ctx)'
         const allPointsTemp = shuffle([...points, ...outsidePoints]);
         // if (!allPointsTemp) 
         setAllPoints(allPointsTemp);
@@ -240,7 +241,6 @@ export default React.memo(DotsOnCanvas);
 
 
 
-/*
 'use client'
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import opentype, { BoundingBox } from 'opentype.js';
@@ -428,4 +428,3 @@ return (<>
 export default React.memo(DotsOnCanvas) ;
 
 */
-

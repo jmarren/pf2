@@ -1,4 +1,4 @@
-'use client'
+/*'use client'
 import React, { useEffect, useRef, useState } from 'react';
 import opentype from 'opentype.js';
 // import {loadFont} from 'pages/api/loadFonts'
@@ -156,3 +156,4 @@ return (
 export default React.memo(DotsOnCanvas)
 
 
+*/

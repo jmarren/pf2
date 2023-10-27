@@ -5,7 +5,15 @@ import { useFont } from './FontContext';
 import opentype from 'opentype.js';
 
 
-const DotsOnCanvas: React.FC = ({text, textColor, fontSize, header}) => {
+interface DotsOnCanvasProps {
+  text: string;
+  textColor: string;
+  fontSize: number;
+  header?: boolean;
+}
+
+const DotsOnCanvas: React.FC<DotsOnCanvasProps> = ({text, textColor, fontSize, header}) => {
+  type Func = (...args: any[]) => void;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 const lengthNum = header ? text.length : 8;
 const font = useFont();
@@ -31,13 +39,11 @@ const [fontLoaded, setFontLoaded] = useState(false);
 
   useEffect(() => {
     // Debounce function
-    const debounce = (func, delay) => {
-      let debounceTimer;
-      return function() {
-        const context = this;
-        const args = arguments;
+    const debounce = (func: Func, delay: number): Func => {
+      let debounceTimer: ReturnType<typeof setTimeout> | undefined;
+      return function(this: any, ...args: any[]): void {
         clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => func.apply(context, args), delay);
+        debounceTimer = setTimeout(() => func.apply(this, args), delay);
       };
     };
 
@@ -61,7 +67,7 @@ const [fontLoaded, setFontLoaded] = useState(false);
   }, []);
 
 
-  const drawDots = (allPoints, ctx, currentIndex = 0) => {
+  const drawDots = (allPoints: any[], ctx: CanvasRenderingContext2D , currentIndex = 0) => {
     if (currentIndex >= allPoints.length) return;
 
     ctx.fillStyle = textColor;
@@ -81,7 +87,7 @@ const [fontLoaded, setFontLoaded] = useState(false);
   };
 
   const loadFontAndDrawDots = () => {
-    if (!font) return;
+    if (font === null) return;
 
         const canvas = canvasRef.current;
         if (!canvas) return;

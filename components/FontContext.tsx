@@ -1,15 +1,18 @@
 'use client'
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import opentype from 'opentype.js';
 
-
-const FontContext = createContext(null);
+const FontContext = createContext<opentype.Font | null>(null);
+        
 
 export const useFont = () => {
     return useContext(FontContext);
 }
+interface FontProviderProps {
+    children: ReactNode;
+}
 
-export const FontProvider = ({ children }) => {
+export const FontProvider: React.FC<FontProviderProps>= ({ children }) => {
     const [font, setFont] = useState<opentype.Font | null>(null);
 
     useEffect(() => {
@@ -22,12 +25,14 @@ export const FontProvider = ({ children }) => {
             setFont(loadedFont);
         });
     }, []);
-        
 
-if (!font) return null;
-    return (
+if (font === null)  return null 
+else {
+        return (
         <FontContext.Provider value={font}>
             {children}
         </FontContext.Provider>
     );
+}
+
 }
