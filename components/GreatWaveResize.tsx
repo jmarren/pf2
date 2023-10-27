@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 
 const DotDrawer: React.FC = () => {
+  const [radius, setRadius] = useState(1.8);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 //   const [count, setCount] = useState(0);
   let localCount = 0; // Local count variable
@@ -12,6 +13,7 @@ const DotDrawer: React.FC = () => {
   });
   const [newCall, setNewCall] = useState(false);
   type Func = (...args: any[]) => void;
+
 
 
 
@@ -28,12 +30,15 @@ const debounce = (func: Func, delay: number): Func => {
                 const ctx = canvas.getContext('2d');
                 ctx?.clearRect(0, 0, canvas.width, canvas.height);
     
+        if (canvas.width < 400) {
+          setRadius(0.5);
+        }
         setDimensions({
             width: window.innerWidth * 0.85,
             height: window.innerHeight * 0.85
         });
         setNewCall(true);
-    }, [canvasRef, setDimensions, setNewCall])
+    }, [canvasRef, setDimensions, setNewCall, setRadius])
 
 
     const debouncedHandleResize = debounce(handleResize, 50)
@@ -142,7 +147,7 @@ const debounce = (func: Func, delay: number): Func => {
 const totalDots = 10000000; // Number of dots
 const dotsPerBatch = 1000; // Number of dots to be drawn in one go
 // const radius = 5;
-const radius = 1.8;
+// const radius = 1.8;
 // const radius = 3;
 // /*
 const drawDotBatch = () => {

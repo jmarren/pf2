@@ -15,8 +15,8 @@ function Page() {
                   <DotDrawer />
                 </Suspense >
               <div className='w-[95.5vw] h-[95.5vh]  top-[2.25vh] left-[2.25vw] relative '>
-              <div className='h-12  sm:h-16  md:h-28  justify-between top-0 flex flex-row'>
-                <div className=' ml-8 w-full h-12 justify-start'>
+              <div className='h-10 min-[320px]:h-12 sm:h-16  md:h-28  justify-between top-0 flex flex-row'>
+                <div className=' ml-8 w-full h-10 justify-start'>
                   <DotsOnCanvas fontSize={100} textColor={'#98a3a1'} text={'John Marren - Web Developer'} header={true} />
                 </div>
               </div>
