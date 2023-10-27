@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 
 const DotDrawer: React.FC = () => {
-  const [radius, setRadius] = useState(1.8);
+  const [radius, setRadius] = useState(window.innerWidth < 450 ? 0.75 : 1.8);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 //   const [count, setCount] = useState(0);
   let localCount = 0; // Local count variable
@@ -194,7 +194,7 @@ const drawDotBatch = () => {
                 let positionY = yCenter + scaledHeight +  (Math.random() * Math.random() * maxAuraDistance);
                 ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
                 ctx.beginPath();
-                ctx.arc(auraX, positionY ,  Math.random(), 0, Math.PI * 2  );
+                ctx.arc(auraX, positionY , Math.random(), 0, Math.PI * 2  );
                 ctx.fill();
                 }
             } else {
