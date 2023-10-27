@@ -52,7 +52,7 @@ const [fontLoaded, setFontLoaded] = useState(false);
             loadFontAndDrawDots();
     };
 
-    const debouncedScaleCanvas = debounce(scaleCanvas, 5);
+    const debouncedScaleCanvas = debounce(scaleCanvas, 20);
     window.addEventListener('resize', debouncedScaleCanvas);
 
     return () => {

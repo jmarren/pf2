@@ -1,18 +1,22 @@
 import DotsOnCanvas from "@/components/NameDrawing"
 import DotDrawer from "@/components/GreatWaveResize"
-import PartialBorderDiv from "@/components/PartialBorders";
+// import PartialBorderDiv from "@/components/PartialBorders";
 import { Suspense } from "react";
 import Head from 'next/head'
+import Link from 'next/link'
 
 function Page() {
     return (
       <>
-    <Head><link rel="preload" href='/MigaeSemibold-3zd2M.otf' as="font" type="font/otf" crossOrigin="anonymous"></link></Head>
+   <link rel="preload" href='/MigaeSemibold-3zd2M.otf' as="font" type="font/otf" crossOrigin="anonymous"></link>
+
         <div className='bg-sky-100 w-full h-full min-h-screen fixed top-0'>
           <div className=' w-full h-full m-auto z-10 relative'>
           <div className='w-full h-full mx-auto justify-center items-center  absolute'>
             <div className='absolute justify-center items-center w-full h-full'>
-                            <Suspense><DotDrawer /></Suspense >
+                <Suspense>
+                  <DotDrawer />
+                </Suspense >
               <div className='w-[95.5vw] h-[95.5vh]  top-[2.25vh] left-[2.25vw] relative '>
 
               
@@ -26,7 +30,10 @@ function Page() {
               </div>
 
               <div className='flex flex-row ml-[50vw] sm:ml-[55vw]'>
-                <div className='flex flex-row h-10 cursor-pointer'><DotsOnCanvas fontSize={100} text={'Projects'} textColor={'#98a3a1'} header={false} /></div>
+                <Link href='/portfolio'>
+                <div className='flex flex-row h-10 cursor-pointer'><DotsOnCanvas fontSize={100} text={'Projects'} textColor={'#98a3a1'} header={false} />
+                </div>
+               </Link>
                 <a target='_blank' href='/Resume_9_8.pdf'>
                   <div className='flex flex-row h-10 cursor-pointer'> <DotsOnCanvas fontSize={100} text={'Resume'} textColor={'#98a3a1'} header={false} />
                   </div>
@@ -45,7 +52,8 @@ function Page() {
  
 
           </div>
-        </div></>
+        </div>
+        </>
       );
 }
 

@@ -54,7 +54,7 @@ const DotDrawer: React.FC = () => {
       offscreenCanvas.width = dimensions.width;
       offscreenCanvas.height = dimensions.height;
 
-      const offscreenCtx = offscreenCanvas.getContext('2d');
+      const offscreenCtx = offscreenCanvas.getContext('2d', {willReadFrequently: true});
       if (!offscreenCtx) return;
         
 
@@ -267,6 +267,16 @@ const drawDotBatch = () => {
   }
 }
 useEffect(() => {
+    const debounce = (func, delay) => {
+        let debounceTimer;
+        return function() {
+          const context = this;
+          const args = arguments;
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(() => func.apply(context, args), delay);
+        };
+      };
+  
     const handleResize = () => {
         const canvas = canvasRef.current;
                 if (!canvas) return;
@@ -279,6 +289,7 @@ useEffect(() => {
         });
         setNewCall(true);
     }
+    const debouncedHandleResize = debounce(handleResize, 20);
 
     window.addEventListener('resize', handleResize);
 
@@ -298,7 +309,7 @@ useEffect(() => {
   return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute '></canvas>;
 };
 
-export default DotDrawer;
+export default React.memo(DotDrawer);
 
 
 //     const handleResize = () => {
