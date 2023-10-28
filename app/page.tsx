@@ -7,7 +7,7 @@ function Page() {
     return (
       <>
    <link rel="preload" href='/MigaeSemibold-3zd2M.otf' as="font" type="font/otf" crossOrigin="anonymous"></link>
-        <div className='bg-sky-100 w-full h-full min-h-screen fixed top-0'>
+        <div className='bg-sky-100 w-full h-full min-h-screen fixed top-0'> 
           <div className=' w-full h-full m-auto z-10 relative'>
           <div className='w-full h-full mx-auto justify-center items-center  absolute'>
             <div className='absolute justify-center items-center w-full h-full'>
@@ -37,9 +37,9 @@ function Page() {
               </div>
             </div>
             </div>
-          </div>
+          </div>      
         </div>
-        </>
+  </>
       );
 }
 

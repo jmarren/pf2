@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 
 const DotDrawer: React.FC = () => {
-  const [radius, setRadius] = useState(window.innerWidth < 450 ? 0.75 : 1.8);
+  const [radius, setRadius] = useState(window.innerWidth < 450 ? 0.75 : 1);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 //   const [count, setCount] = useState(0);
   let localCount = 0; // Local count variable
@@ -35,7 +35,7 @@ const debounce = (func: Func, delay: number): Func => {
         }
         setDimensions({
             width: window.innerWidth * 0.85,
-            height: window.innerHeight * 0.85
+            height: window.innerHeight * 0.85  
         });
         setNewCall(true);
     }, [canvasRef, setDimensions, setNewCall, setRadius])
@@ -305,7 +305,18 @@ const drawDotBatch = () => {
     }
  }, [dimensions, newCall, localCount]);
 
-  return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute '></canvas>;
+
+// const handleClick = () => {
+//   const canvas = canvasRef.current;
+//   if (!canvas) return;
+
+//   const ctx = canvas.getContext('2d', {willReadFrequently: true});
+//   if (!ctx) return;
+
+
+// }
+// onClick={handleClick}
+  return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute ' ></canvas>;
 };
 
 export default React.memo(DotDrawer);
