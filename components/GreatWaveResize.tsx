@@ -303,7 +303,7 @@ const drawDotBatch = () => {
     if (!newCall ) {
         drawImage();
     }
- }, [dimensions, newCall, localCount]);
+ }, [dimensions, newCall, localCount, radius]);
 
 
 // const handleClick = () => {
