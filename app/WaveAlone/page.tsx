@@ -1,4 +1,4 @@
-import DotDrawer from "@/components/GreatWaveResize";
+import DotDrawer from "@/components/GWV3";
 
 
 function Page() {
