@@ -12,7 +12,7 @@ const CanvasComponent: React.FC = () => {
   const localCount = 0; 
 
     const img = new Image();
-        img.src = 'Great-Wave-Off-Kanagawa.svg';
+    img.src = 'Great-Wave-Off-Kanagawa.svg';
         
     
         img.onload = () => {
@@ -82,8 +82,8 @@ const CanvasComponent: React.FC = () => {
     const totalDots = 10000000; // Number of dots
     const dotsPerBatch = 1000; // Number of dots to be drawn in one go
     const radius = 1;
+}
   const drawDots = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
-    // const drawDotBatch = () => {
         for (let i = 0; i < dotsPerBatch; i++) {
     
             const auraProb = 0.3;

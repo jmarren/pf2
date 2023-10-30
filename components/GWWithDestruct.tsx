@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState, useCallback, forwardRef, useImperativeHandle } from 'react';
 
 const DotDrawer: React.FC = forwardRef((_, ref) => {
-    const radius = 2;
+    const radius = 20;
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
     const localCount = useRef(0) // Local count variable
@@ -21,15 +21,10 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
         const canvas = canvasRef.current;
         if (!canvas) return;
 
-        console.log('new offscreencanvas with: ', dimensions )
         
         const ctx = canvas.getContext('2d', {willReadFrequently: true});
             if (!ctx) return;
-            console.log(dimensions)
-            console.log(image.width)
-            console.log(image.height)
             const aspectRatio = (image.width as number) / (image.height as number);
-            console.log(aspectRatio)
             canvas.width = (dimensions.width);
             canvas.height =  (dimensions.height);
             const canvasWidth = canvas.width;
@@ -45,8 +40,8 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
                 scaledWidthTemp = dimensions.width * paddingFactor;
                 scaledHeightTemp = (dimensions.width / aspectRatio) * 0.9;
             }
-            console.log(scaledWidthTemp);
-            console.log(scaledHeightTemp); 
+            // console.log(scaledWidthTemp);
+            // console.log(scaledHeightTemp); 
             // Calculate where to start drawing the image to center it
             const xCenterTemp = (dimensions.width - scaledWidthTemp ) / 2;
             const yCenterTemp = (dimensions.height - scaledHeightTemp) / 2;
@@ -58,10 +53,10 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
         const offscreenCtx = offscreenCanvas.getContext('2d', {willReadFrequently: true});
         if (!offscreenCtx) return;
 
-        console.log(offscreenCtx);
-        console.log(yCenterTemp ); 
-        console.log(scaledHeightTemp);
-        console.log(offscreenCanvas);
+        // console.log(offscreenCtx);
+        // console.log(yCenterTemp ); 
+        // console.log(scaledHeightTemp);
+        // console.log(offscreenCanvas);
             
         offscreenCtx.drawImage(image, xCenterTemp, yCenterTemp, scaledWidthTemp, scaledHeightTemp );
 
@@ -123,8 +118,8 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
         if (image == null || dimensions === null ) return;
         
 
-        console.log('clear: ', clear)
-        console.log(destruct)
+        // console.log('clear: ', clear)
+        // console.log(destruct)
 
 
         // CLEAR ====================
@@ -170,7 +165,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
         const ctx = canvas.getContext('2d', {willReadFrequently: true});
         if (!ctx) return;
 
-        console.log('starting new batch with dimensions: ', dimensions.width,  ', ', dimensions.height )
+        // console.log('starting new batch with dimensions: ', dimensions.width,  ', ', dimensions.height )
 
         for (let i = 0; i < dotsPerBatch && !newCall && !clear; i++) {
             const x = Math.floor(Math.random() * dimensions.width);
@@ -191,7 +186,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
                     let positionY = offscreenImgData.yCenter - (Math.random() * Math.random() * maxAuraDistance);
                     ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
                     ctx.beginPath();
-                    ctx.arc(auraX, positionY ,radius * Math.random(), 0, Math.PI * 2  );
+                    ctx.arc(auraX, positionY ,radius * Math.random() * Math.random() * Math.random() * Math.random() * Math.random() * Math.random(), 0, Math.PI * 2  );
                     ctx.fill();
                     }  else {       // Bottom Aura 
                     const auraX = x;
@@ -206,7 +201,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
                     let positionY = offscreenImgData.yCenter + offscreenImgData.scaledHeight +  (Math.random() * Math.random() * maxAuraDistance);
                     ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
                     ctx.beginPath();
-                    ctx.arc(auraX, positionY , Math.random(), 0, Math.PI * 2  );
+                    ctx.arc(auraX, positionY , radius * Math.random() * Math.random() * Math.random() * Math.random() * Math.random() * Math.random(), 0, Math.PI * 2  );
                     ctx.fill();
                     }
                 } else {
@@ -223,7 +218,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
                     let positionX = offscreenImgData.xCenter + offscreenImgData.scaledWidth + (Math.random() * Math.random() * maxAuraDistance);
                     ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
                     ctx.beginPath();
-                    ctx.arc(positionX, auraY ,radius * Math.random(), 0, Math.PI * 2  );
+                    ctx.arc(positionX, auraY ,radius * Math.random() * Math.random() * Math.random() * Math.random() * Math.random() * Math.random(), 0, Math.PI * 2  );
                     ctx.fill();
                     } else {        // Left Aura
                     const auraY = y;
@@ -238,7 +233,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
                     let positionX = offscreenImgData.xCenter - (Math.random() * Math.random() * maxAuraDistance);
                     ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
                     ctx.beginPath();
-                    ctx.arc(positionX, auraY ,radius * Math.random(), 0, Math.PI * 2  );
+                    ctx.arc(positionX, auraY ,radius * Math.random() * Math.random() * Math.random() * Math.random() * Math.random() * Math.random(), 0, Math.PI * 2  );
                     ctx.fill();
                     }
                 } 
@@ -251,7 +246,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
                     
                         ctx.fillStyle = `rgb(${offscreenImgData.corners.topLeft.red}, ${offscreenImgData.corners.topLeft.green}, ${offscreenImgData.corners.topLeft.blue})`;
                         ctx.beginPath();
-                        ctx.arc(auraX, auraY, radius * Math.random(), 0, Math.PI * 2);
+                        ctx.arc(auraX, auraY, radius * Math.random() * Math.random() * Math.random() * Math.random() * Math.random() * Math.random(), 0, Math.PI * 2);
                         ctx.fill();
                     }
                     
@@ -262,7 +257,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
                     
                         ctx.fillStyle = `rgb(${offscreenImgData.corners.bottomLeft.red}, ${offscreenImgData.corners.bottomLeft.green}, ${offscreenImgData.corners.bottomLeft.blue})`;
                         ctx.beginPath();
-                        ctx.arc(auraX, auraY, radius * Math.random(), 0, Math.PI * 2);
+                        ctx.arc(auraX, auraY, radius * Math.random() * Math.random() * Math.random() * Math.random() * Math.random() * Math.random(), 0, Math.PI * 2);
                         ctx.fill();
                     }
                 }
@@ -274,7 +269,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
                     
                         ctx.fillStyle = `rgb(${ offscreenImgData.corners.topRight.red}, ${ offscreenImgData.corners.topRight.green}, ${ offscreenImgData.corners.topRight.blue})`;
                         ctx.beginPath();
-                        ctx.arc(auraX, auraY, radius * Math.random(), 0, Math.PI * 2);
+                        ctx.arc(auraX, auraY, radius * Math.random() * Math.random() * Math.random() * Math.random() * Math.random() * Math.random(), 0, Math.PI * 2);
                         ctx.fill();
                     } else { // Bottom Right
                         const maxAuraDistance = 100; 
@@ -283,7 +278,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
                     
                         ctx.fillStyle = `rgb(${ offscreenImgData.corners.bottomRight.red}, ${offscreenImgData.corners.bottomRight.green}, ${offscreenImgData.corners.bottomRight.blue})`;
                         ctx.beginPath();
-                        ctx.arc(auraX, auraY, radius * Math.random(), 0, Math.PI * 2);
+                        ctx.arc(auraX, auraY, radius * Math.random() * Math.random() * Math.random() * Math.random() * Math.random() * Math.random(), 0, Math.PI * 2);
                         ctx.fill();
                     }
                 }
@@ -297,14 +292,14 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
                 ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
                 ctx.fillRect(x, y, 1, 1);
                 ctx.beginPath();
-                ctx.arc(x, y, radius * Math.random(), 0, Math.PI * 2);
+                ctx.arc(x, y, radius * Math.random() * Math.random() * Math.random() * Math.random() * Math.random() * Math.random(), 0, Math.PI * 2);
                 ctx.fill();
                 }
             }
         }
-        if (localCount.current < totalDots) {
+        // if (localCount.current < totalDots) {
             animationRef.current = requestAnimationFrame(drawDotBatch);
-        }
+        // }
 
     }
 
@@ -321,7 +316,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
     img.src = 'Great-Wave-Off-Kanagawa.svg';
     img.onload = () => {
             setImage(img);
-            console.log('image loaded')
+            // console.log('image loaded')
             }
     }, [])
 

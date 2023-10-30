@@ -54,7 +54,7 @@ const debounce = (func: Func, delay: number): Func => {
 
   useEffect(() => {
     const drawImage = () => {
-    if (newCall ) return;
+    if (newCall) return;
     setNewCall(true);
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -270,7 +270,7 @@ const drawDotBatch = () => {
             ctx.fill();
             }
         }   
-    }   
+    }
     if (localCount < totalDots) {
        requestAnimationFrame(drawDotBatch);
     }
@@ -282,17 +282,6 @@ const drawDotBatch = () => {
 drawImage();
  }, [dimensions, newCall, localCount, radius]);
 
-
-// const handleClick = () => {
-//   const canvas = canvasRef.current;
-//   if (!canvas) return;
-
-//   const ctx = canvas.getContext('2d', {willReadFrequently: true});
-//   if (!ctx) return;
-
-
-// }
-// onClick={handleClick}
   return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute ' ></canvas>;
 };
 

@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, forwardRef, useImperativeHandle } from 'react';
 import { useFont } from './FontContext';
 
 
@@ -10,7 +10,7 @@ interface DotsOnCanvasProps {
   header?: boolean;
 }
 
-const DotsOnCanvas: React.FC<DotsOnCanvasProps> = ({text, textColor, fontSize, header}) => {
+const DotsOnCanvas: React.FC<DotsOnCanvasProps> = forwardRef(({text, textColor, fontSize, header}, ref) => {
   type Func = (...args: any[]) => void;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 const lengthNum = header ? text.length : 8;
@@ -18,6 +18,9 @@ const font = useFont();
 const [canvasWidth, setCanvasWidth] = useState(fontSize * lengthNum / 1.5);
 const [canvasHeight, setCanvasHeight] = useState(fontSize * 2);
 const [fontLoaded, setFontLoaded] = useState(false);
+const animationRef = useRef();
+const [clear, setClear] = useState(false);
+const [destruct, setDestruct] = useState(false)
 
 
   const shuffle = (array: any[]) => {
@@ -30,6 +33,32 @@ const [fontLoaded, setFontLoaded] = useState(false);
     return array;
   }
 
+  const clearDots = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d', {willReadFrequently: true});
+    if (!ctx) return;
+
+
+    for (let i = 0; i < 500; i++) {
+        const x = Math.floor(Math.random() * canvas.width);
+        const y = Math.floor(Math.random() * canvas.height);
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(x, y, 5, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+
+        // Clear the area inside the clipping path
+        ctx.clearRect(x - 5, y - 5, 10, 10);
+        ctx.restore();
+
+    }
+
+    animationRef.current = requestAnimationFrame(clearDots);
+}
+
   const drawDots = useCallback((allPoints: any[], ctx: CanvasRenderingContext2D , currentIndex = 0) => {
     if (currentIndex >= allPoints.length) return;
 
@@ -39,18 +68,19 @@ const [fontLoaded, setFontLoaded] = useState(false);
     ctx.fill();
  
     let dotsToDraw = 100;
-    while (dotsToDraw-- && currentIndex < allPoints.length) {
+    while (dotsToDraw-- && currentIndex < allPoints.length && !clear) {
       if ( currentIndex >= allPoints.length - 1) return;
         currentIndex++;
         ctx.beginPath();
         ctx.arc(allPoints[currentIndex].x, allPoints[currentIndex].y, 1, 0, Math.PI * 2);
         ctx.fill();
     }
-    requestAnimationFrame(() => drawDots(allPoints, ctx, currentIndex + 1));
-  }, [textColor]);
+    animationRef.current = requestAnimationFrame(() => drawDots(allPoints, ctx, currentIndex + 1));
+  }, [textColor, clear]);
 
 const loadFontAndDrawDots = useCallback(() => {
     if (font === null) return;
+    
 
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -92,7 +122,12 @@ const loadFontAndDrawDots = useCallback(() => {
             }
           }   
           const allPoints = shuffle([...points, ...outsidePoints]);
-          drawDots(allPoints, ctx)
+          // if (!newCall) {
+            if (!destruct) {
+              drawDots(allPoints, ctx)
+            }
+          // }
+
 }, [drawDots, canvasRef, font, setFontLoaded, fontSize, text])
 
  // Debounce function
@@ -130,10 +165,33 @@ useEffect(() => {
 }, [loadFontAndDrawDots]);
 
 
+useImperativeHandle(ref,  () => ({
+  startClearing: () => {
+    cancelAnimationFrame(animationRef.current);
+    setDestruct(true);    
+  }
+}));
+
+// const handleClick = () => {
+//   cancelAnimationFrame(animationRef.current);
+//   setDestruct(true);
+// }
+ 
+useEffect(() => {
+  if (destruct) {
+    setClear(true);
+  }
+}, [destruct])
+
+useEffect(() => {
+  if (clear) {
+    clearDots();
+  }
+}, [clear])
+
 const dynamicClass = header ? 'w-[300px] h-[40px] min-[320px]:w-[350px] min-[320px]:h-[50px] min-[450px]:h-[70px] min-[450px]:w-[500px] sm:w-[600px] sm:h-[90px] md:w-[750px] md:h-[120px]' 
         : ' w-[30px] h-[15px] min-[320px]:w-[65px] min-[320px]:h-[30px] min-[450px]:w-[80px] min-[450px]:h-[40px] sm:w-[100px] sm:h-[50px] md:w-[120px] md:h-[60px] lg:w-[150px] lg:h-[75px] '
 
-// if (!font) return null;
 return (
     <>
 <canvas 
@@ -141,9 +199,10 @@ return (
     width={canvasWidth}  
     height={canvasHeight}
     className={dynamicClass}
+    // onClick={handleClick}
     >
 </canvas>
 </>)
-};
+});
 
 export default React.memo(DotsOnCanvas);
