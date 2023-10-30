@@ -1,4 +1,4 @@
-import DotDrawer from "@/components/GWV3";
+import DotDrawer from "@/components/GWWithDestruct";
 
 
 function Page() {

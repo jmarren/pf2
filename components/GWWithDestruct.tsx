@@ -12,6 +12,9 @@ const DotDrawer: React.FC = () => {
     type Func = (...args: any[]) => void;
     const totalDots = 10000000; // Number of dots
     const dotsPerBatch = 1000; // Number of dots to be drawn in one go
+    const [destruct, setDestruct] = useState(false);
+    const [clear, setClear] = useState(false)
+    const animationRef = useRef(null)
 
     useEffect(() => {
         if (image === null || dimensions == null) return;
@@ -118,12 +121,41 @@ const DotDrawer: React.FC = () => {
     useEffect(() => {
         if (offscreenImgData === null) return; 
         if (image == null || dimensions === null ) return;
+        
+
+        console.log('clear: ', clear)
+        console.log(destruct)
+
+
+        // CLEAR ====================
+        const clearDots = () => {
+            const canvas = canvasRef.current;
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d', {willReadFrequently: true});
+            if (!ctx) return;
+
+
+            for (let i = 0; i < dotsPerBatch; i++) {
+                const x = Math.floor(Math.random() * dimensions.width);
+                const y = Math.floor(Math.random() * dimensions.height);
+
+                ctx.clearRect(x, y, 5, 5 )
+
+            }
+
+            animationRef.current = requestAnimationFrame(clearDots);
+        }
+
+
+
+
+
+        // DRAW ================
         const drawDotBatch = () => {
         if (newCall) return;
         setNewCall(true);
-        const auraProb = 0.3;
         const maxAuraDistance = 150;  
-        const distanceWeight = Math.random() * Math.random();            
             
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -133,7 +165,7 @@ const DotDrawer: React.FC = () => {
 
         console.log('starting new batch with dimensions: ', dimensions.width,  ', ', dimensions.height )
 
-        for (let i = 0; i < dotsPerBatch && !newCall; i++) {
+        for (let i = 0; i < dotsPerBatch && !newCall && !clear; i++) {
             const x = Math.floor(Math.random() * dimensions.width);
             const y = Math.floor(Math.random() * dimensions.height);
 
@@ -264,11 +296,17 @@ const DotDrawer: React.FC = () => {
             }
         }
         if (localCount.current < totalDots) {
-            return requestAnimationFrame(drawDotBatch);
+            animationRef.current = requestAnimationFrame(drawDotBatch);
         }
+
     }
-    drawDotBatch(); 
-    }, [offscreenImgData])
+
+    if (clear) {
+        clearDots();
+    } else {
+        drawDotBatch();
+    }
+    }, [offscreenImgData, clear])
 
 
     useEffect(() => {
@@ -282,7 +320,7 @@ const DotDrawer: React.FC = () => {
 
     useEffect(() => {
     setDimensions({ 
-        width: window.innerWidth  ,
+        width: window.innerWidth,
         height: window.innerHeight
     })
         const debounce = (func: Func, delay: number): Func => {
@@ -312,14 +350,24 @@ const DotDrawer: React.FC = () => {
           }
     },[])
 
-
     useEffect(() => {
         setNewCall(true);
     }, [dimensions])
 
+    const handleClick = () => {
+        cancelAnimationFrame(animationRef.current);
+        setDestruct(true);
+        setNewCall(true);
+    }
 
+    useEffect(() => {
+        if (destruct) {
+        setClear(true)
+        }
 
-    return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute ' ></canvas>;
+    }, [destruct])
+
+    return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute ' onClick={handleClick}></canvas>;
 };
 
 export default React.memo(DotDrawer);
