@@ -1,10 +1,17 @@
+'use client'
 import DotsOnCanvas from "@/components/NameDrawing";
 // import DotDrawer from "@/components/GreatWaveResize";
-import CanvasComponent from "@/components/TwoAnimations";
-import { Suspense } from "react";
+// import CanvasComponent from "@/components/TwoAnimations";
+import DotDrawer from '@/components/GWWithDestruct'
+import React, { Suspense, useRef } from "react";
 import Link from 'next/link';
 
 function Page() {
+const canvasRef = useRef(null)
+
+  const handleClick = () => {
+    canvasRef.current.startClearing();
+  }
 
     return (
       <>
@@ -14,7 +21,7 @@ function Page() {
           <div className='w-full h-full mx-auto justify-center items-center  absolute'>
             <div className='absolute justify-center items-center w-full h-full'>
                 <Suspense>
-                  <CanvasComponent />
+                  <DotDrawer ref={canvasRef} />
                 </Suspense >
               <div className='w-[95.5vw] h-[95.5vh]  top-[2.25vh] left-[2.25vw] relative pointer-events-none'>
               <div className='h-10 min-[320px]:h-12 sm:h-16  md:h-28  justify-between top-0 flex flex-row'>
@@ -23,10 +30,10 @@ function Page() {
                 {/* </div> */}
               </div>
               <div className='flex flex-row ml-[50vw] sm:ml-[55vw] '>
-                <Link href='/portfolio'>
-                <div className='flex flex-row h-10 cursor-pointer pointer-events-auto'><DotsOnCanvas fontSize={150} text={'Projects'} textColor={'#98a3a1'} header={false} />
+                {/* <Link href='/portfolio'> */}
+                <div onClick={handleClick} className='flex flex-row h-10 cursor-pointer pointer-events-auto'><DotsOnCanvas fontSize={150} text={'Projects'} textColor={'#98a3a1'} header={false} />
                 </div>
-               </Link>
+               {/* </Link> */}
                 <a target='_blank' href='/Resume_9_8.pdf'>
                   <div className='flex flex-row h-10 cursor-pointer pointer-events-auto'> <DotsOnCanvas fontSize={150} text={'Resume'} textColor={'#98a3a1'} header={false} />
                   </div>

@@ -1,8 +1,8 @@
 'use client'
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, forwardRef, useImperativeHandle } from 'react';
 
-const DotDrawer: React.FC = () => {
-    const radius = 1;
+const DotDrawer: React.FC = forwardRef((_, ref) => {
+    const radius = 2;
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
     const localCount = useRef(0) // Local count variable
@@ -139,8 +139,15 @@ const DotDrawer: React.FC = () => {
             for (let i = 0; i < dotsPerBatch; i++) {
                 const x = Math.floor(Math.random() * dimensions.width);
                 const y = Math.floor(Math.random() * dimensions.height);
-
-                ctx.clearRect(x, y, 5, 5 )
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.clip();
+        
+                // Clear the area inside the clipping path
+                ctx.clearRect(x - 5, y - 5, 10, 10);
+                ctx.restore();
 
             }
 
@@ -354,11 +361,19 @@ const DotDrawer: React.FC = () => {
         setNewCall(true);
     }, [dimensions])
 
-    const handleClick = () => {
-        cancelAnimationFrame(animationRef.current);
-        setDestruct(true);
-        setNewCall(true);
-    }
+    useImperativeHandle(ref, () => ({
+        startClearing: () => {
+          cancelAnimationFrame(animationRef.current);
+          setDestruct(true)
+          setNewCall(true);
+        }
+      }));
+
+    // const handleClick = () => {
+    //     cancelAnimationFrame(animationRef.current);
+    //     setDestruct(true);
+    //     setNewCall(true);
+    // }
 
     useEffect(() => {
         if (destruct) {
@@ -367,7 +382,7 @@ const DotDrawer: React.FC = () => {
 
     }, [destruct])
 
-    return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute ' onClick={handleClick}></canvas>;
-};
+    return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute ' ></canvas>;
+});
 
 export default React.memo(DotDrawer);
