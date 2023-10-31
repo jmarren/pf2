@@ -1,16 +1,15 @@
 'use client'
-import React, { useEffect, useRef, useState, useCallback, forwardRef, useImperativeHandle } from 'react';
+import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
+import { OffscreenImgData } from '@/types';
 
 const DotDrawer: React.FC = forwardRef((_, ref) => {
-    const radius = 20;
+    const radius = 25;
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
-    const localCount = useRef(0) // Local count variable
     const [dimensions, setDimensions] = useState(null);
-    const [offscreenImgData, setOffscreenImgData] = useState(null);
+    const [offscreenImgData, setOffscreenImgData] = useState<OffscreenImgData | null>(null);
     const [newCall, setNewCall] = useState(false);
     type Func = (...args: any[]) => void;
-    const totalDots = 10000000; // Number of dots
     const dotsPerBatch = 1000; // Number of dots to be drawn in one go
     const [destruct, setDestruct] = useState(false);
     const [clear, setClear] = useState(false)
@@ -27,8 +26,6 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
             const aspectRatio = (image.width as number) / (image.height as number);
             canvas.width = (dimensions.width);
             canvas.height =  (dimensions.height);
-            const canvasWidth = canvas.width;
-            const canvasHeight = canvas.height;
 
             let scaledWidthTemp: number, scaledHeightTemp: number;
             const paddingFactor = 0.8
@@ -40,8 +37,6 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
                 scaledWidthTemp = dimensions.width * paddingFactor;
                 scaledHeightTemp = (dimensions.width / aspectRatio) * 0.9;
             }
-            // console.log(scaledWidthTemp);
-            // console.log(scaledHeightTemp); 
             // Calculate where to start drawing the image to center it
             const xCenterTemp = (dimensions.width - scaledWidthTemp ) / 2;
             const yCenterTemp = (dimensions.height - scaledHeightTemp) / 2;
@@ -53,11 +48,6 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
         const offscreenCtx = offscreenCanvas.getContext('2d', {willReadFrequently: true});
         if (!offscreenCtx) return;
 
-        // console.log(offscreenCtx);
-        // console.log(yCenterTemp ); 
-        // console.log(scaledHeightTemp);
-        // console.log(offscreenCanvas);
-            
         offscreenCtx.drawImage(image, xCenterTemp, yCenterTemp, scaledWidthTemp, scaledHeightTemp );
 
         const imgData = offscreenCtx.getImageData(0, 0, offscreenCanvas.width, offscreenCanvas.height).data;
@@ -71,7 +61,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
         const imgDataTopRight = offscreenCtx.getImageData(xCenterTemp + scaledWidthTemp - 1, yCenterTemp + 10, -1, 1).data;
         const imgDataBottomRight = offscreenCtx.getImageData(xCenterTemp + scaledWidthTemp - 20, yCenterTemp + scaledHeightTemp - 10, 1, 1 ).data;
 
-        setOffscreenImgData({
+        setOffscreenImgData(prev => ({...prev,
             scaledWidth: scaledWidthTemp,
             scaledHeight: scaledHeightTemp,
             yCenter: yCenterTemp,
@@ -107,7 +97,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
                     blue: imgDataBottomLeft[2], 
                 }
             }
-        })
+        }))
         setNewCall(false);
     }, [newCall, image])
 
@@ -116,11 +106,6 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
     useEffect(() => {
         if (offscreenImgData === null) return; 
         if (image == null || dimensions === null ) return;
-        
-
-        // console.log('clear: ', clear)
-        // console.log(destruct)
-
 
         // CLEAR ====================
         const clearDots = () => {
@@ -165,9 +150,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
         const ctx = canvas.getContext('2d', {willReadFrequently: true});
         if (!ctx) return;
 
-        // console.log('starting new batch with dimensions: ', dimensions.width,  ', ', dimensions.height )
-
-        for (let i = 0; i < dotsPerBatch && !newCall && !clear; i++) {
+        for (let i = 0; i < dotsPerBatch && !clear; i++) {
             const x = Math.floor(Math.random() * dimensions.width);
             const y = Math.floor(Math.random() * dimensions.height);
 
@@ -316,7 +299,6 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
     img.src = 'Great-Wave-Off-Kanagawa.svg';
     img.onload = () => {
             setImage(img);
-            // console.log('image loaded')
             }
     }, [])
 
@@ -352,9 +334,6 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
           }
     },[])
 
-    useEffect(() => {
-        setNewCall(true);
-    }, [dimensions])
 
     useImperativeHandle(ref, () => ({
         startClearing: () => {
@@ -364,11 +343,7 @@ const DotDrawer: React.FC = forwardRef((_, ref) => {
         }
       }));
 
-    // const handleClick = () => {
-    //     cancelAnimationFrame(animationRef.current);
-    //     setDestruct(true);
-    //     setNewCall(true);
-    // }
+
 
     useEffect(() => {
         if (destruct) {

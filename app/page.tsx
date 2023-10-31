@@ -27,8 +27,6 @@ function Page() {
     }, 1500);
 
     setTimeout(() => {
-
-
     // Navigate to a different page
     router.push('/portfolio'); // Replace '/newPage' with the path you want to navigate to
   }, 2500);

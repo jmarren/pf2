@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState, useRef } from 'react';
 import Card from '@/components/PortfolioCard';
 
@@ -32,7 +33,7 @@ const CardContainer: React.FC = ({topFinal, animation, children}) => {
     return (
         <div
         ref={cardRef}
-        className="absolute top-[-500px] w-1/2 h-1/3 bg-sky-100 rounded-lg border transition-all shadow-lg"
+        className="absolute top-[-500px] w-1/2 h-1/3 min-h-[200px] bg-sky-100 rounded-lg border transition-all shadow-lg"
       >
        {children}
       </div>
