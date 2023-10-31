@@ -5,10 +5,10 @@ export type Color = {
   };
   
   export type EdgeData = {
-    left: ImageData;
-    right: ImageData;
-    top: ImageData;
-    bottom: ImageData;
+    left: Uint8ClampedArray;
+    right: Uint8ClampedArray;
+    top: Uint8ClampedArray;
+    bottom: Uint8ClampedArray;
   };
   
   export type CornerData = {
@@ -25,7 +25,24 @@ export type Color = {
     xCenter: number;
     offscreenCanvasWidth: number;
     offscreenCanvasHeight: number;
-    main: ImageData;
+    main: Uint8ClampedArray;
     edges: EdgeData;
     corners: CornerData;
   };
+
+  export type Dimensions = {
+    width: number;
+    height: number;
+  }
+
+
+
+export type CustomCanvasHandle =  {
+    startClearing: () => void;
+  }
+
+ export interface Point {
+    x: number;
+    y: number;
+  }
+  

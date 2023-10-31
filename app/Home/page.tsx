@@ -1,5 +1,5 @@
 import DotsOnCanvas from "@/components/NameDrawing";
-import DotDrawer from "@/components/GreatWaveResize";
+import DotDrawer from "@/components/GreatWave";
 import { Suspense } from "react";
 import Link from 'next/link';
 

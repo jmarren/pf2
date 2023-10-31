@@ -1,26 +1,33 @@
 'use client'
 import React, { useEffect, useRef, useState, useCallback, forwardRef, useImperativeHandle } from 'react';
 import { useFont } from './FontContext';
+import { Point } from '@/types';
 
 
-interface DotsOnCanvasProps {
+interface TextCanvasProps {
   text: string;
   textColor: string;
   fontSize: number;
   header?: boolean;
 }
 
-const DotsOnCanvas: React.FC<DotsOnCanvasProps> = forwardRef(({text, textColor, fontSize, header}, ref) => {
+// interface CustomCanvasHandle {
+//   startClearing: () => void;
+// }
+// interface HTMLCanvasElement {
+//   startClearing: () => void;
+// }
+
+const TextCanvas = React.forwardRef<HTMLCanvasElement, TextCanvasProps>(({text, textColor, fontSize, header}, ref) => {
   type Func = (...args: any[]) => void;
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-const lengthNum = header ? text.length : 8;
-const font = useFont();
-const [canvasWidth, setCanvasWidth] = useState(fontSize * lengthNum / 1.5);
-const [canvasHeight, setCanvasHeight] = useState(fontSize * 2);
-const [fontLoaded, setFontLoaded] = useState(false);
-const animationRef = useRef();
-const [clear, setClear] = useState(false);
-const [destruct, setDestruct] = useState(false)
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const lengthNum = header ? text.length : 8;
+  const font = useFont();
+  const [canvasWidth, setCanvasWidth] = useState(fontSize * lengthNum / 1.5);
+  const [canvasHeight, setCanvasHeight] = useState(fontSize * 2);
+  const animationRef = useRef<number | null>();
+  const [clear, setClear] = useState(false);
+  const [destruct, setDestruct] = useState(false)
 
 
   const shuffle = (array: any[]) => {
@@ -59,7 +66,7 @@ const [destruct, setDestruct] = useState(false)
     animationRef.current = requestAnimationFrame(clearDots);
 }
 
-  const drawDots = useCallback((allPoints: any[], ctx: CanvasRenderingContext2D , currentIndex = 0) => {
+  const drawDots = useCallback((allPoints: Point[], ctx: CanvasRenderingContext2D , currentIndex = 0) => {
     if (currentIndex >= allPoints.length) return;
 
     ctx.fillStyle = textColor;
@@ -105,11 +112,10 @@ const loadFontAndDrawDots = useCallback(() => {
           const interval = 200;
           // const interval = 5000 / ((bbox.x2 - bbox.x1) * (bbox.y2 - bbox.y1) / (density * density));
           const chanceToDrawOutside = 0.0; // 20% chance to draw a point outside the path
-          setFontLoaded(true);
           
           for (let x = bbox.x1; x <= bbox.x2; x += density) {
             for (let y = bbox.y1; y <= bbox.y2; y += density) {
-              const point = svgElement.createSVGPoint();
+              const point: Point = svgElement.createSVGPoint();
               point.x = x;
               point.y = y;          
 
@@ -122,13 +128,11 @@ const loadFontAndDrawDots = useCallback(() => {
             }
           }   
           const allPoints = shuffle([...points, ...outsidePoints]);
-          // if (!newCall) {
             if (!destruct) {
               drawDots(allPoints, ctx)
             }
-          // }
 
-}, [drawDots, canvasRef, font, setFontLoaded, fontSize, text])
+}, [drawDots, canvasRef, font, fontSize, text])
 
  // Debounce function
     const debounce = (func: Func, delay: number): Func => {
@@ -164,18 +168,6 @@ useEffect(() => {
   loadFontAndDrawDots();
 }, [loadFontAndDrawDots]);
 
-
-useImperativeHandle(ref,  () => ({
-  startClearing: () => {
-    cancelAnimationFrame(animationRef.current);
-    setDestruct(true);    
-  }
-}));
-
-// const handleClick = () => {
-//   cancelAnimationFrame(animationRef.current);
-//   setDestruct(true);
-// }
  
 useEffect(() => {
   if (destruct) {
@@ -192,6 +184,26 @@ useEffect(() => {
 const dynamicClass = header ? 'w-[300px] h-[40px] min-[320px]:w-[350px] min-[320px]:h-[50px] min-[450px]:h-[70px] min-[450px]:w-[500px] sm:w-[600px] sm:h-[90px] md:w-[750px] md:h-[120px]' 
         : ' w-[30px] h-[15px] min-[320px]:w-[65px] min-[320px]:h-[30px] min-[450px]:w-[80px] min-[450px]:h-[40px] sm:w-[100px] sm:h-[50px] md:w-[120px] md:h-[60px] lg:w-[150px] lg:h-[75px] '
 
+// useImperativeHandle(ref,  () => ({
+//   startClearing: () => {
+//     if (animationRef.current !== undefined && animationRef.current !== null) {
+//       cancelAnimationFrame(animationRef.current);
+//     }
+//     setDestruct(true);    
+//   },
+  
+// }));
+
+
+useImperativeHandle(ref, () => ({
+  ...canvasRef.current,  // assuming canvasRef is a ref to the canvas element
+  startClearing: () => {
+    if (animationRef.current !== undefined && animationRef.current !== null) {
+      cancelAnimationFrame(animationRef.current);
+    }
+    setDestruct(true);
+  },
+} as HTMLCanvasElement & { startClearing: () => void; }));
 return (
     <>
 <canvas 
@@ -199,10 +211,9 @@ return (
     width={canvasWidth}  
     height={canvasHeight}
     className={dynamicClass}
-    // onClick={handleClick}
     >
 </canvas>
 </>)
 });
 
-export default React.memo(DotsOnCanvas);
+export default TextCanvas;

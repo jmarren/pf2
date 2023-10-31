@@ -1,8 +1,13 @@
 'use client'
-import React, { useEffect, useState, useRef } from 'react';
-import Card from '@/components/PortfolioCard';
+import React, { useEffect, ReactNode, useRef } from 'react';
 
-const CardContainer: React.FC = ({topFinal, animation, children}) => {
+interface CardContainerProps {
+    topFinal: string;
+    animation: string;
+    children: ReactNode;
+}
+
+const CardContainer: React.FC <CardContainerProps> = ({topFinal, animation, children}) => {
     const cardRef = useRef<HTMLDivElement | null>(null);
 
     const handleAnimationEnd = () => {

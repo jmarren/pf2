@@ -1,7 +1,9 @@
-import Link from 'next/link'
-// import LoveJames from './Love-James';
+interface CardProps {
+  children: React.ReactNode;
+}
 
-const Card = ({children}) =>  {
+
+const Card: React.FC<CardProps>  = ({children}) =>  {
   return ( <div className="w-full h-64  flex overflow-hidden rounded-lg ">
   <div className="w-1/5 h-8 flex items-center gap-2 p-2.5">
     <div className="w-2.5 h-2.5 rounded-full bg-red-600"></div>

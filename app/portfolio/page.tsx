@@ -1,21 +1,10 @@
 // 'use client'
 import Link from 'next/link'
-import { Transition } from '@headlessui/react';
-// import React, {useEffect, useState} from 'react'
 import CardContainer from '@/components/CardContainer';
 import Card from '@/components/PortfolioCard'
 import LoveJames from '@/components/Love-James';
 
 const Page: React.FC = () => {
-    // const [show, setShow] = useState(false);
-
-    // useEffect(()=> {
-    //     setTimeout(() => {
-    //         setShow(true);  
-    //     }, 100)
-
-    // }, [])
-    
     return (
         <div className='w-full h-screen bg-orange-400 flex'>
             <Link href='/'>
@@ -24,7 +13,6 @@ const Page: React.FC = () => {
                     </button>
             </Link>
             <div className='ml-[25%]'>
-                {/* {show ?  <> */}
                 <CardContainer topFinal={'51%'} animation={'animate-fall2'} >
                     <Card>
                         <LoveJames />
@@ -38,80 +26,9 @@ const Page: React.FC = () => {
                         Fun With Buttons
         </Link>
     </div></Card></CardContainer>
-    {/* </> : <></>}  */}
             </div>
         </div>
     );
   };
       
  export default Page;
-
-
-
-
-
-
-
-
-
-    //     const [isMounted, setIsMounted] = useState(false);
-
-//     useEffect(() => {
-//         setIsMounted(true);
-//     }, [])
-
-//     return (
-//         <div className="flex flex-col items-center justify-center h-screen bg-[#f7b13c]">
-//       <Transition
-//         show={isMounted}
-//         enter="transform transition-all duration-1500 ease-out"
-//         enterFrom="-translate-y-full"
-//         enterTo="translate-y-1/4"
-//         className="m-4 p-8 bg-blue-300"
-//       >
-//         <Card />
-//       </Transition>
-
-//       <Transition
-//         show={isMounted}
-//         enter="transform transition-all duration-1500 ease-out delay-300"
-//         enterFrom="-translate-y-full"
-//         enterTo="translate-y-1/4"
-//         className="m-4 p-8 bg-green-300"
-//       >
-//        <Card />
-//       </Transition>
-//     </div>        
-//     );
-// }
-
-// export default Page; 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* <div className='bg-red-500 w-full h-full min-h-screen relative'>
-            <div className='bg-blue-500 w-1/4 h-1/2 top-1/4 left-1/2 absolute'> 
-                <Link href={'/animate'} >
-                    <button className='bg-stone-300 w-1/2  h-1/2 top-1/4 left-1/4 absolute'>
-                        Back to Animate
-                    </button>
-                </Link>
-            </div>
-    </div>  */}
