@@ -2,11 +2,11 @@
 import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import { OffscreenImgData, Dimensions } from '@/types';
 
-interface CustomCanvasHandle {
-    startClearing: () => void;
-  }
+// interface CustomCanvasHandle {
+//     startClearing: () => void;
+//   }
   
-const DotDrawer = React.forwardRef<HTMLCanvasElement>((_, ref) => {
+const GreatWave = forwardRef<HTMLCanvasElement>((_, ref) => {
     const radius = 25;
     const canvasRef = useRef< HTMLCanvasElement | null>(null);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
@@ -361,4 +361,4 @@ const DotDrawer = React.forwardRef<HTMLCanvasElement>((_, ref) => {
     return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute ' ></canvas>;
 });
 
-export default React.memo(DotDrawer);
+export default React.memo(GreatWave);

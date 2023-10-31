@@ -38,7 +38,7 @@ const CardContainer: React.FC <CardContainerProps> = ({topFinal, animation, chil
     return (
         <div
         ref={cardRef}
-        className="absolute top-[-500px] w-1/2 h-1/3 min-h-[200px] bg-sky-100 rounded-lg border transition-all shadow-lg"
+        className="absolute top-[-34vh] w-1/2 h-1/3 min-h-[200px] bg-sky-100 rounded-lg border transition-all shadow-lg"
       >
        {children}
       </div>

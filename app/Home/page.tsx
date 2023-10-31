@@ -1,5 +1,5 @@
-import DotsOnCanvas from "@/components/NameDrawing";
-import DotDrawer from "@/components/GreatWave";
+import TextCanvas from "@/components/TextCanvas";
+import GreatWave from "@/components/GreatWave";
 import { Suspense } from "react";
 import Link from 'next/link';
 
@@ -12,25 +12,25 @@ function Page() {
           <div className='w-full h-full mx-auto justify-center items-center  absolute'>
             <div className='absolute justify-center items-center w-full h-full'>
                 <Suspense>
-                  <DotDrawer />
+                  <GreatWave />
                 </Suspense >
               <div className='w-[95.5vw] h-[95.5vh]  top-[2.25vh] left-[2.25vw] relative '>
               <div className='h-12  sm:h-16  md:h-28  justify-between top-0 flex flex-row'>
                 <div className=' ml-8 w-full h-12 justify-start'>
-                  <DotsOnCanvas fontSize={100} textColor={'#98a3a1'} text={'John Marren - Web Developer'} header={true} />
+                  <TextCanvas fontSize={100} textColor={'#98a3a1'} text={'John Marren - Web Developer'} header={true} />
                 </div>
               </div>
               <div className='flex flex-row ml-[50vw] sm:ml-[55vw]'>
                 <Link href='/portfolio'>
-                <div className='flex flex-row h-10 cursor-pointer'><DotsOnCanvas fontSize={100} text={'Projects'} textColor={'#98a3a1'} header={false} />
+                <div className='flex flex-row h-10 cursor-pointer'><TextCanvas fontSize={100} text={'Projects'} textColor={'#98a3a1'} header={false} />
                 </div>
                </Link>
                 <a target='_blank' href='/Resume_9_8.pdf'>
-                  <div className='flex flex-row h-10 cursor-pointer'> <DotsOnCanvas fontSize={100} text={'Resume'} textColor={'#98a3a1'} header={false} />
+                  <div className='flex flex-row h-10 cursor-pointer'> <TextCanvas fontSize={100} text={'Resume'} textColor={'#98a3a1'} header={false} />
                   </div>
                 </a>
                 <a target='_blank' href="https://github.com/jmarren">
-                  <div className='flex flex-row h-10 cursor-pointer' ><DotsOnCanvas fontSize={100} text={'Github'} textColor={'#98a3a1'} header={false} />
+                  <div className='flex flex-row h-10 cursor-pointer' ><TextCanvas fontSize={100} text={'Github'} textColor={'#98a3a1'} header={false} />
                   </div>
                 </a>
               </div>
