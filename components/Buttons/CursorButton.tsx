@@ -15,8 +15,10 @@ const CursorButton: FC<Props> = ({ text }) => {
   // Handle mouse move events and update currentPosition
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const x = e.clientX - 300;
-      const y = e.clientY - 345;
+    //   const x = e.clientX - 300;
+    //   const y = e.clientY - 345;
+      const x = e.clientX - 10
+      const y = e.clientY - 10
       setCurrentPosition({ x, y });
 
     };
@@ -66,22 +68,19 @@ const CursorButton: FC<Props> = ({ text }) => {
     const hue = index * 36; // Spread the hues around the color wheel
    
     return   (
-      <Image 
+      <div
         id='cursors'
-        src='/icons8-cursor.svg'
-        alt="cursor"
-        width={10}
-        height={10}
         style={{
-          position: 'absolute',
+          zIndex: 50,
+          position: 'fixed',
           left: coords.x,
           top: coords.y,
           pointerEvents: 'none',
           filter: `hue-rotate(${hue}deg)` // Change color using hue rotation
         }}
-        className='w-full h-full scale-[0.12] bg-blue-400 rounded-full'
+        className='w-[20px] h-[20px] fixed bg-blue-400 rounded-full'
         key={index} // Important for React to identify each SVG uniquely
-      />
+      ></div> 
     );
   }) : <></>}
       </div>
