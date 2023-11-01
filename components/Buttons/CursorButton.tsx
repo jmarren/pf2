@@ -1,4 +1,143 @@
-import React, { useState, useEffect, useRef, FC } from 'react';
+import React, { useState, useEffect, FC } from 'react';
+import Image from 'next/image';
+
+interface Props {
+  text: string;
+}
+
+
+const CursorButton: FC<Props> = ({ text }) => {
+  const [clicked, setClicked] = useState(false);
+  const [positions, setPositions] = useState(Array(100).fill({ x: 0, y: 0 }));
+  const [currentPosition, setCurrentPosition] = useState({ x: -610, y: -340 });
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+
+  // Handle mouse move events and update currentPosition
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = e.clientX - 300;
+      const y = e.clientY - 345;
+      setCurrentPosition({ x, y });
+
+    };
+
+    if (clicked) {
+      document.addEventListener('mousemove', handleMouseMove);
+      return () => document.removeEventListener('mousemove', handleMouseMove);
+    }
+  }, [clicked]);
+
+  // Control the behavior of trailing cursors
+  useEffect(() => {
+    const moveTrail = () => {
+      setPositions((prev) => [{ ...currentPosition }, ...prev.slice(0, -1)]);
+    };
+
+    if (intervalId !== null) {
+      clearInterval(intervalId);
+      setIntervalId(null);
+    }
+
+    if (currentPosition.x !== positions[0].x || currentPosition.y !== positions[0].y) {
+      moveTrail();
+    } else {
+      const id = setInterval(moveTrail, 50);
+      setIntervalId(id);
+    }
+
+    return () => {
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [currentPosition, positions, intervalId]);
+
+
+  return (
+    <div className="w-[5/6] m-3">
+      <button
+        className="active:scale-75 w-full bg-yellow-400 text-white px-10 py-4 rounded-3xl transition ease-in-out ring-2 ring-inset ring-yellow-500 hover:bg-yellow-500"
+        onClick={() => setClicked((prev) => !prev)}
+      >
+        {text}
+      </button>
+      <div>
+      {clicked ? positions.map((coords, index) => {
+    const hue = index * 36; // Spread the hues around the color wheel
+   
+    return   (
+      <Image 
+        id='cursors'
+        src='/icons8-cursor.svg'
+        alt="cursor"
+        width={10}
+        height={10}
+        style={{
+          position: 'absolute',
+          left: coords.x,
+          top: coords.y,
+          pointerEvents: 'none',
+          filter: `hue-rotate(${hue}deg)` // Change color using hue rotation
+        }}
+        className='w-full h-full scale-[0.12] bg-blue-400 rounded-full'
+        key={index} // Important for React to identify each SVG uniquely
+      />
+    );
+  }) : <></>}
+      </div>
+    </div>
+  );
+};
+
+export default CursorButton;
+
+
+
+
+/* 
+
+
+
+ 
+  return (
+    <div className='w-48 m-3'>
+    <button className="active:scale-75 w-full bg-yellow-500 text-white px-10 py-4 rounded-3xl transition ease-in-out" onClick={() => setClicked((prevClicked) => !prevClicked)}>
+      {text}
+    </button>
+    <div >   {clicked ? positions.map((coords, index) => {
+      return  <Image id='cursors' src='/icons8-cursor.svg' alt="cursor" width={10} height={10} style={{position: 'absolute', left: coords.x, top: coords.y, pointerEvents: 'none'}} className='w-full h-full scale-[0.12]' />
+    }) : null}
+
+</div>
+
+    </div>
+  );
+};
+
+export default CursorButton;
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* import React, { useState, useEffect, useRef, FC } from 'react';
 import Image from 'next/image';
 
 interface Props {
@@ -16,7 +155,9 @@ const CursorButton: FC<Props> = ({ text }) => {
 
   const captureMousePosition = (event: MouseEvent) => {
     console.log('x: ', event.clientX, ' y: ', event.clientY)
-    setMousePositions(prevPositions => [...prevPositions, { x: event.clientX, y: event.clientY }]);
+    setMousePositions((prev) => [{ x: event.clientX, y: event.clientY }, ...prev.slice(0, -1)]);
+    // setMousePositions(prevPositions => [...prevPositions, { x: event.clientX - 300, y: event.clientY - 345}]);
+
   };
 
   const runFunction = () => {
@@ -29,6 +170,7 @@ const CursorButton: FC<Props> = ({ text }) => {
   }, [mousePositions])
 
   const startInterval = () => {
+    // setMousePositions((prev) => [{ x: e.clientX, y: e.clientY }, ...prev.slice(0, -1)]);
     if (intervalIdRef.current === null) {
       intervalIdRef.current = window.setInterval(runFunction, 50);
       setIsRunning(true);
@@ -82,7 +224,7 @@ const CursorButton: FC<Props> = ({ text }) => {
 };
 
 export default CursorButton;
-
+*/
 
 
 

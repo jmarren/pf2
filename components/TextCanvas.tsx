@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState, useCallback, forwardRef, useImperativeHandle } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useImperativeHandle } from 'react';
 import { useFont } from './FontContext';
 import { Point } from '@/types';
 
