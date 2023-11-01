@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, FC } from 'react';
-import Image from 'next/image';
 
 interface Props {
   text: string;
@@ -10,34 +9,36 @@ interface CurrentPositionType {
 }
 
 const CursorButton: FC<Props> = ({ text }) => {  
-  const [positions, setPositions ] = useState(null);
-  const [currentPosition, setCurrentPosition] = useState(null); 
   const intervalIdRef = useRef<number | null>(null);
+  const removeDivIntervalRef = useRef<number | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [mousePositions, setMousePositions] = useState<CurrentPositionType[]>([]);
 
-  const captureMousePosition = (event: MouseEvent) => {
-    // setPositions((prev) => [{ ...currentPosition }, ...prev.slice(0, -1)]);
-    if (mousePositions.length == 0) {
-        setMousePositions(prev => [{ x: event.clientX, y: event.clientY }])
-    }
-    else if (mousePositions.length < 10) {
-        setMousePositions(prevPositions => [{ x: event.clientX, y: event.clientY }, ...prevPositions]);
-    }
-    else if (mousePositions.length > 10) {
-        setMousePositions(prevPositions => [{ x: event.clientX, y: event.clientY }, ...prevPositions.slice(0, -1)]);
+  useEffect(() => {
+    if (isRunning) {
+      removeDivIntervalRef.current = window.setInterval(() => {
+        setMousePositions(prev => prev.slice(0, prev.length - 1));
+      }, 50);
     }
 
+    return () => {
+      if (removeDivIntervalRef.current !== null) {
+        clearInterval(removeDivIntervalRef.current);
+      }
+    };
+  }, [isRunning]);
+
+  const captureMousePosition = (event: MouseEvent) => {
+    setMousePositions(prevPositions => [{ x: event.clientX, y: event.clientY }, ...prevPositions]);
   };
 
   const runFunction = () => {
-    console.log('Function is running!', new Date().toLocaleTimeString());
     window.addEventListener('mousemove', captureMousePosition, { once: true });
   };
 
   const startInterval = () => {
     if (intervalIdRef.current === null) {
-      intervalIdRef.current = window.setInterval(runFunction, 50);
+      intervalIdRef.current = window.setInterval(runFunction, 25);
       setIsRunning(true);
     }
   };
@@ -50,14 +51,12 @@ const CursorButton: FC<Props> = ({ text }) => {
     }
     window.removeEventListener('mousemove', captureMousePosition);
   };
+
     
     return (
     <>      {isRunning ? mousePositions.map((coords, index) => {
     const hue = index * 36; // Spread the hues around the color wheel
-    if (index === 0) {
-        console.log('coords: ', coords);
-        console.log('currentPosition: ', currentPosition)
-    }
+
     return   (
         <div
         key={hue + index.toString()}
