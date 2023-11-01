@@ -11,7 +11,7 @@ import { DoubleSide } from "three";
 
 function LoveJames() {
         return (  
-
+                    <Suspense fallback={null} >
         <a href="https://lovej-d62f6.web.app/" target="_blank" rel="noopener noreferrer">
 <Suspense fallback={<div>Loading...</div>} > 
 <div className="h-full w-full" >
@@ -24,17 +24,16 @@ function LoveJames() {
           /> */}
           
                 <group>
-                    <Suspense fallback={null} >
+
                     <BubbleFont />
                     <Heart />
-                    </Suspense>
                 </group>
             
             <ambientLight intensity={1.3} />
         </Canvas>
-       
-        </div> </Suspense>
-        </a>
+
+        </div>       </Suspense>
+        </a> </Suspense>
     );
 }
 

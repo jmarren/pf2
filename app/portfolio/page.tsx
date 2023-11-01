@@ -4,6 +4,7 @@ import CardContainer from '@/components/CardContainer';
 import Card from '@/components/PortfolioCard'
 import LoveJames from '@/components/Love-James';
 
+
 const Page: React.FC = () => {
     return (
         <div className='w-full h-screen bg-orange-400 flex'>
@@ -15,7 +16,9 @@ const Page: React.FC = () => {
             <div className='ml-[25%]'>
                 <CardContainer topFinal={'51%'} animation={'animate-fall2'} >
                     <Card>
-                        <LoveJames />
+                            <LoveJames />
+
+                        
                     </Card>
                 </CardContainer>  
                 <CardContainer topFinal={'12%'} animation={'animate-fall1'} >

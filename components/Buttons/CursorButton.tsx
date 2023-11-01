@@ -1,5 +1,4 @@
 import React, { useState, useEffect, FC } from 'react';
-import Image from 'next/image';
 
 interface Props {
   text: string;
@@ -15,8 +14,6 @@ const CursorButton: FC<Props> = ({ text }) => {
   // Handle mouse move events and update currentPosition
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-    //   const x = e.clientX - 300;
-    //   const y = e.clientY - 345;
       const x = e.clientX - 10
       const y = e.clientY - 10
       setCurrentPosition({ x, y });
@@ -52,13 +49,13 @@ const CursorButton: FC<Props> = ({ text }) => {
         clearInterval(intervalId);
       }
     };
-  }, [currentPosition, positions, intervalId]);
+  }, [currentPosition, positions]);
 
 
   return (
     <div className="w-[5/6] m-3">
       <button
-        className="active:scale-75 w-full bg-yellow-400 text-white px-10 py-4 rounded-3xl transition ease-in-out ring-2 ring-inset ring-yellow-500 hover:bg-yellow-500"
+       className="active:scale-75 w-full bg-yellow-400 text-white px-10 py-4 rounded-3xl transition ease-in-out ring-2 ring-inset ring-yellow-500 hover:bg-yellow-500"
         onClick={() => setClicked((prev) => !prev)}
       >
         {text}
@@ -69,6 +66,7 @@ const CursorButton: FC<Props> = ({ text }) => {
    
     return   (
       <div
+        key={hue + index.toString()}
         id='cursors'
         style={{
           zIndex: 50,
@@ -79,7 +77,6 @@ const CursorButton: FC<Props> = ({ text }) => {
           filter: `hue-rotate(${hue}deg)` // Change color using hue rotation
         }}
         className='w-[20px] h-[20px] fixed bg-blue-400 rounded-full'
-        key={index} // Important for React to identify each SVG uniquely
       ></div> 
     );
   }) : <></>}

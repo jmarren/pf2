@@ -159,7 +159,7 @@ import React, {
     );
   })}
 </group>
-<group
+{/* <group
   position={[-12, -5, -8]}
   rotation={[Math.PI / 2, 0, (3 * Math.PI) / 2]}
   scale={1}
@@ -196,7 +196,7 @@ import React, {
       />
     );
   })}
-</group>
+</group> */}
 
         
 <directionalLight
