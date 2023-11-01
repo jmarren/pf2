@@ -8,7 +8,7 @@ const Page: React.FC = () => {
     return (
         <div className='w-full h-screen bg-orange-400 flex'>
             <Link href='/'>
-                <button className='absolute top-2 left-2 bg-[#003f88] p-3 rounded-md ring-1 ring-inset ring-blue-500 hover:ring-4 active:bg-blue-500 active:scale-90 text-yellow-500' >
+                <button className='absolute top-2 left-2 transition duration-300  bg-[#003f88] p-3 rounded-md ring-1 ring-inset ring-blue-500 hover:ring-4 active:bg-blue-500 ease-in-out active:scale-90 text-yellow-500' >
                     Back to Home
                     </button>
             </Link>

@@ -1,34 +1,136 @@
-import React, { useState, useEffect, FC } from 'react';
+import React, { useState, useEffect, useRef, FC } from 'react';
 import Image from 'next/image';
 
 interface Props {
   text: string;
 }
+interface CurrentPositionType {
+  x: number;
+  y: number;
+}
 
+const CursorButton: FC<Props> = ({ text }) => {  
+  const intervalIdRef = useRef<number | null>(null);
+  const [isRunning, setIsRunning] = useState(false);
+  const [mousePositions, setMousePositions] = useState<CurrentPositionType[]>([]);
+
+  const captureMousePosition = (event: MouseEvent) => {
+    console.log('x: ', event.clientX, ' y: ', event.clientY)
+    setMousePositions(prevPositions => [...prevPositions, { x: event.clientX, y: event.clientY }]);
+  };
+
+  const runFunction = () => {
+    window.addEventListener('mousemove', captureMousePosition, { once: true });
+  };
+
+  useEffect(() => {
+    console.log('NEW IMAGE!')
+    console.log('mousePositions[mousePositions.length - 1]',  mousePositions[mousePositions.length - 1])
+  }, [mousePositions])
+
+  const startInterval = () => {
+    if (intervalIdRef.current === null) {
+      intervalIdRef.current = window.setInterval(runFunction, 50);
+      setIsRunning(true);
+    }
+  };
+
+  const stopInterval = () => {
+    if (intervalIdRef.current !== null) {
+      clearInterval(intervalIdRef.current);
+      intervalIdRef.current = null;
+      setIsRunning(false);
+    }
+    window.removeEventListener('mousemove', captureMousePosition);
+  };
+    
+    return (
+    <>      {isRunning ? mousePositions.map((coords, index) => {
+    const hue = index * 36; // Spread the hues around the color wheel
+    if (index === mousePositions.length - 1) {
+        console.log('coords: ', coords);
+        // console.log('mousePositions: ', mousePositions[mousePositions.length - 1])
+    }
+    return  <Image 
+        id='cursors'
+        src='/icons8-cursor.svg'
+        alt="cursor"
+        width={10}
+        height={10}
+        style={{
+          zIndex: 100,
+          position: 'fixed',
+          left: coords.x,
+          top: coords.y,
+          pointerEvents: 'none',
+          filter: `hue-rotate(${hue}deg)` // Change color using hue rotation
+        }}
+        className='w-[50%] h-full scale-[0.12] bg-blue-400 rounded-full border border-red-700'
+        key={index} // Important for React to identify each SVG uniquely
+      />
+    
+  }) : <></>}
+    <div className="w-[5/6] m-3">
+      <button
+        className="active:scale-75 w-full bg-yellow-400 text-white px-10 py-4 rounded-3xl transition ease-in-out ring-2 ring-inset ring-yellow-500 hover:bg-yellow-500"
+        onClick={isRunning ? stopInterval : startInterval}
+      >
+        {text}
+      </button></div>
+    </>
+  );
+};
+
+export default CursorButton;
+
+
+
+
+
+// Previous
+/*
+import React, { useState, useEffect, useRef, FC } from 'react';
+import Image from 'next/image';
+
+interface Props {
+  text: string;
+}
+interface CurrentPositionType {
+  x: number;
+  y: number;
+}
 
 const CursorButton: FC<Props> = ({ text }) => {
+  const containerRef = useRef<HTMLDivElement | null>(null)
   const [clicked, setClicked] = useState(false);
   const [positions, setPositions] = useState(Array(100).fill({ x: 0, y: 0 }));
-  const [currentPosition, setCurrentPosition] = useState({ x: -610, y: -340 });
+  const [currentPosition, setCurrentPosition] = useState<CurrentPositionType | null> (null);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
-
   // Handle mouse move events and update currentPosition
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = e.clientX - 300;
-      const y = e.clientY - 345;
+ 
+     const handleMouseMove = (e: MouseEvent) => {
+
+      const x = e.clientX;
+      const y = e.clientY;
+      console.log('x: ', x,  ' y: ', y)
       setCurrentPosition({ x, y });
-
     };
+ 
+ 
+ 
+  useEffect(() => {
+      document.addEventListener('mousemove', handleMouseMove, true);
+      return () => document.removeEventListener('mousemove', handleMouseMove, true);
 
-    if (clicked) {
-      document.addEventListener('mousemove', handleMouseMove);
-      return () => document.removeEventListener('mousemove', handleMouseMove);
-    }
-  }, [clicked]);
+  }, []);
 
   // Control the behavior of trailing cursors
+
+
+
   useEffect(() => {
+    if (!currentPosition) return;
+    if (!clicked) return; 
     const moveTrail = () => {
       setPositions((prev) => [{ ...currentPosition }, ...prev.slice(0, -1)]);
     };
@@ -46,15 +148,16 @@ const CursorButton: FC<Props> = ({ text }) => {
     }
 
     return () => {
+      if (!clicked ) return;
       if (intervalId !== null) {
         clearInterval(intervalId);
       }
     };
-  }, [currentPosition, positions]);
+  }, [currentPosition]);
 
 
   return (
-    <div className="w-[5/6] m-3">
+    <div ref={containerRef} className="w-[5/6] m-3">
       <button
         className="active:scale-75 w-full bg-yellow-400 text-white px-10 py-4 rounded-3xl transition ease-in-out ring-2 ring-inset ring-yellow-500 hover:bg-yellow-500"
         onClick={() => setClicked((prev) => !prev)}
@@ -73,7 +176,8 @@ const CursorButton: FC<Props> = ({ text }) => {
         width={10}
         height={10}
         style={{
-          position: 'absolute',
+          zIndex: 100,
+          position: 'fixed',
           left: coords.x,
           top: coords.y,
           pointerEvents: 'none',
@@ -85,213 +189,6 @@ const CursorButton: FC<Props> = ({ text }) => {
     );
   }) : <></>}
       </div>
-    </div>
-  );
-};
-
-export default CursorButton;
-
-
-
-
-
-
-//  ==========================  V2  ==========================
-/*
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-
-interface CursorButtonProps {
-  text: string;
-  onClick: () => void;
-}
-
-const CursorButton: React.FC<CursorButtonProps> = ({ text, onClick }) => {
-  const [clicked, setClicked] = useState(false);
-  const [positions, setPositions] = useState(Array(10).fill({ x: 0, y: 0 }));
-  const [currentPosition, setCurrentPosition] = useState({ x: 0, y: 0 });
-  const [intervalId, setIntervalId] = useState(null);
-
-  useEffect(() => {
-    const moveTrail = () => {
-      setPositions(prevPositions => [
-        currentPosition,
-        ...prevPositions.slice(0, -1),
-      ]);
-    };
-
-    if (clicked) {
-      document.addEventListener('mousemove', event => {
-        const x = event.clientX - 600;
-        const y = event.clientY - 350;
-        setCurrentPosition({ x, y });
-      });
-    }
-
-    // Clear existing interval when mouse moves
-    if (intervalId) {
-      clearInterval(intervalId);
-      setIntervalId(null);
-    }
-
-    // Start new interval when mouse stops
-    if (currentPosition.x === positions[0].x && currentPosition.y === positions[0].y) {
-      const id = setInterval(moveTrail, 50);
-      setIntervalId(id);
-    } else {
-      moveTrail();
-    }
-
-    return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-  }, [currentPosition, positions, clicked, intervalId]);
-
-  return (
-    <div className='w-48 m-3'>
-      <button
-        className="active:scale-75 w-full bg-yellow-500 text-white px-10 py-4 rounded-3xl transition ease-in-out"
-        onClick={() => setClicked(prevClicked => !prevClicked)}
-      >
-        {text}
-      </button>
-
-        {clicked &&
-          positions.map((coords, index) =>  (
-            
-            <Image
-              key={index}
-              src="/icons8-cursor.svg"
-              alt="cursor"
-              width={10}
-              height={10}
-              style={{
-                position: 'absolute',
-                left: coords.x,
-                top: coords.y,
-                pointerEvents: 'none',
-                width: '100%',
-                height: '100%',
-
-              }}
-              className="scale-[0.12]"
-            />
-
-          ))}
-
-    </div>
-  );
-};
-
-export default CursorButton;
-*/
-
-
-
-/// ========================== V1  ==========================
-/* import React, {useState, useEffect} from 'react';
-import Image from 'next/image';
-
-
-interface CursorButtonProps {
-  text: string;
-  onClick: () => void;
-}
-
-const CursorButton: React.FC<CursorButtonProps> = ({ text, onClick }) => {
-  const [clicked, setClicked] = useState(false);
-  const [positions, setPositions] = useState(
-    Array(10).fill({ x: 0, y: 0 })
-  );
-  const [currentPosition, setCurrentPosition] = useState({ x: 0, y: 0 });
-  const [intervalId, setIntervalId] = useState(null);
-
-
-
-  useEffect(() => {
-    const moveTrail = () => {
-      setPositions((prevPositions) => [
-        currentPosition,
-        ...prevPositions.slice(0, -1),
-      ]);
-    };
-
-    // Start interval when mouse stops
-    const startInterval = () => {
-      if (!intervalId) {
-        const id = setInterval(moveTrail, 50);
-        setIntervalId(id);
-      }
-    };
-
-    // Clear interval when mouse moves
-    const clearExistingInterval = () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-        setIntervalId(null);
-      }
-    };
-
-    if (currentPosition.x !== positions[0].x || currentPosition.y !== positions[0].y) {
-      clearExistingInterval();
-      moveTrail();
-    } else {
-      startInterval();
-    }
-
-    return () => {
-      clearExistingInterval();
-    };
-  }, [currentPosition, positions, intervalId]);
-
-
-
- useEffect(() => {
-
- const handleMouseMove = (event) => {
-      const x = event.clientX - 600;
-      const y = event.clientY - 350;
-      setCurrentPosition({ x, y });
-      console.log(x, y)
-      
-      // const svgElement = document.getElementById('cursors')
-      // if (svgElement) {
-        console.log( positions)
-
-        setPositions((prevPositions) => [
-          { x, y },
-          ...prevPositions.slice(0, -1),
-        ]);       
-    //}
- }
-
-  if (clicked) {
-    document.addEventListener('mousemove', handleMouseMove);
-  }
-
-
- }, [clicked])
-
-
-
-
-
-
-
- 
-  return (
-    <div className='w-48 m-3'>
-    <button className="active:scale-75 w-full bg-yellow-500 text-white px-10 py-4 rounded-3xl transition ease-in-out" onClick={() => setClicked((prevClicked) => !prevClicked)}>
-      {text}
-    </button>
-    <div >   {clicked ? positions.map((coords, index) => {
-      return  <Image id='cursors' src='/icons8-cursor.svg' alt="cursor" width={10} height={10} style={{position: 'absolute', left: coords.x, top: coords.y, pointerEvents: 'none'}} className='w-full h-full scale-[0.12]' />
-    }) : null}
-
-</div>
-
     </div>
   );
 };

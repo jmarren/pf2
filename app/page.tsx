@@ -1,17 +1,14 @@
 'use client'
 import TextCanvas from "@/components/TextCanvas";
-import DotDrawer from '@/components/GreatWave'
+import GreatWave from '@/components/GreatWave'
 import React, { Suspense, useRef, useState} from "react";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-interface CustomCanvasHandle  {
-  startClearing: () => void;
-}
+
 
 function Page() {
   const [currentBgColor, setCurrentBgColor] = useState('sky-100');
   const router = useRouter(); // Next.js router
-  // const canvasRefs = useRef<Array<React.MutableRefObject<HTMLCanvasElement |  null | undefined>>>([]);
   const ref1 = useRef<HTMLCanvasElement>(null)
   const ref2 = useRef<HTMLCanvasElement>(null)
   const ref3 = useRef<HTMLCanvasElement>(null)
@@ -45,7 +42,7 @@ function Page() {
           <div className='w-full h-full mx-auto justify-center items-center  absolute'>
             <div className='absolute justify-center items-center w-full h-full'>
                 <Suspense>
-                  <DotDrawer ref={ref1} />
+                  <GreatWave ref={ref1} />
                 </Suspense >
               <div className='w-[95.5vw] h-[95.5vh]  top-[2.25vh] left-[2.25vw] relative pointer-events-none'>
               <div className='h-10 min-[320px]:h-12 sm:h-16  md:h-28  justify-between top-0 flex flex-row'>

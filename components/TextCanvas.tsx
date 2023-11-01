@@ -11,12 +11,7 @@ interface TextCanvasProps {
   header?: boolean;
 }
 
-// interface CustomCanvasHandle {
-//   startClearing: () => void;
-// }
-// interface HTMLCanvasElement {
-//   startClearing: () => void;
-// }
+
 
 const TextCanvas = React.forwardRef<HTMLCanvasElement, TextCanvasProps>(({text, textColor, fontSize, header}, ref) => {
   type Func = (...args: any[]) => void;
@@ -40,7 +35,7 @@ const TextCanvas = React.forwardRef<HTMLCanvasElement, TextCanvasProps>(({text, 
     return array;
   }
 
-  const clearDots = () => {
+  const clearDots = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     
@@ -62,9 +57,9 @@ const TextCanvas = React.forwardRef<HTMLCanvasElement, TextCanvasProps>(({text, 
         ctx.restore();
 
     }
-
     animationRef.current = requestAnimationFrame(clearDots);
-}
+}, [])
+
 
   const drawDots = useCallback((allPoints: Point[], ctx: CanvasRenderingContext2D , currentIndex = 0) => {
     if (currentIndex >= allPoints.length) return;
@@ -132,7 +127,7 @@ const loadFontAndDrawDots = useCallback(() => {
               drawDots(allPoints, ctx)
             }
 
-}, [drawDots, canvasRef, font, fontSize, text])
+}, [drawDots, canvasRef, font, fontSize, text, destruct])
 
  // Debounce function
     const debounce = (func: Func, delay: number): Func => {
@@ -179,7 +174,7 @@ useEffect(() => {
   if (clear) {
     clearDots();
   }
-}, [clear])
+}, [clear, clearDots])
 
 const dynamicClass = header ? 'w-[300px] h-[40px] min-[320px]:w-[350px] min-[320px]:h-[50px] min-[450px]:h-[70px] min-[450px]:w-[500px] sm:w-[600px] sm:h-[90px] md:w-[750px] md:h-[120px]' 
         : ' w-[30px] h-[15px] min-[320px]:w-[65px] min-[320px]:h-[30px] min-[450px]:w-[80px] min-[450px]:h-[40px] sm:w-[100px] sm:h-[50px] md:w-[120px] md:h-[60px] lg:w-[150px] lg:h-[75px] '
@@ -216,4 +211,5 @@ return (
 </>)
 });
 
+TextCanvas.displayName = 'TextCanvas';
 export default TextCanvas;

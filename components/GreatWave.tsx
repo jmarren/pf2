@@ -1,10 +1,6 @@
 'use client'
 import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import { OffscreenImgData, Dimensions } from '@/types';
-
-// interface CustomCanvasHandle {
-//     startClearing: () => void;
-//   }
   
 const GreatWave = forwardRef<HTMLCanvasElement>((_, ref) => {
     const radius = 25;
@@ -20,7 +16,7 @@ const GreatWave = forwardRef<HTMLCanvasElement>((_, ref) => {
     const animationRef = useRef<number | null>(null)
 
     useEffect(() => {
-        if (image === null || dimensions == null) return;
+        if (image === null) return;
         const canvas = canvasRef.current;
         if (!canvas) return;
         if (canvas === undefined) return;
@@ -29,26 +25,26 @@ const GreatWave = forwardRef<HTMLCanvasElement>((_, ref) => {
         const ctx = canvas.getContext('2d', {willReadFrequently: true});
             if (!ctx) return;
             const aspectRatio = (image.width as number) / (image.height as number);
-            canvas.width = (dimensions.width);
-            canvas.height =  (dimensions.height);
+            canvas.width = (window.innerWidth);
+            canvas.height =  (window.innerHeight);
 
             let scaledWidthTemp: number, scaledHeightTemp: number;
             const paddingFactor = 0.8
 
-            if (dimensions.width / dimensions.height > aspectRatio) {
-                scaledHeightTemp = dimensions.height * paddingFactor;
-                scaledWidthTemp = dimensions.height * aspectRatio * 0.9;
+            if (window.innerWidth / window.innerHeight > aspectRatio) {
+                scaledHeightTemp = window.innerHeight * paddingFactor;
+                scaledWidthTemp = window.innerHeight * aspectRatio * 0.9;
             } else {
-                scaledWidthTemp = dimensions.width * paddingFactor;
-                scaledHeightTemp = (dimensions.width / aspectRatio) * 0.9;
+                scaledWidthTemp = window.innerWidth * paddingFactor;
+                scaledHeightTemp = (window.innerWidth / aspectRatio) * 0.9;
             }
             // Calculate where to start drawing the image to center it
-            const xCenterTemp = (dimensions.width - scaledWidthTemp ) / 2;
-            const yCenterTemp = (dimensions.height - scaledHeightTemp) / 2;
+            const xCenterTemp = (window.innerWidth - scaledWidthTemp ) / 2;
+            const yCenterTemp = (window.innerHeight - scaledHeightTemp) / 2;
 
         const offscreenCanvas = document.createElement('canvas');
-        offscreenCanvas.width = dimensions.width;
-        offscreenCanvas.height = dimensions.height;
+        offscreenCanvas.width = window.innerWidth;
+        offscreenCanvas.height = window.innerHeight;
 
         const offscreenCtx = offscreenCanvas.getContext('2d', {willReadFrequently: true});
         if (!offscreenCtx) return;
@@ -296,7 +292,7 @@ const GreatWave = forwardRef<HTMLCanvasElement>((_, ref) => {
     } else {
         drawDotBatch();
     }
-    }, [offscreenImgData, clear])
+    }, [offscreenImgData, dimensions, image, newCall, clear])
 
 
     useEffect(() => {
@@ -361,4 +357,6 @@ const GreatWave = forwardRef<HTMLCanvasElement>((_, ref) => {
     return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute ' ></canvas>;
 });
 
-export default React.memo(GreatWave);
+GreatWave.displayName = 'GreatWave';
+
+export default GreatWave;

@@ -22,7 +22,7 @@ const handleClick = () => {
             
             <section className='grid grid-rows-9 grid-cols-5  h-[450px] w-[550px] max-w-[550px] max-h-[500px] rounded-lg shadow-2xl ' >
 
-                <div className=' col-start-1 col-end-3 row-start-1 row-end-10 border rounded-lg  h-full w-full bg-sky-300 flex flex-col justify-center items-center'>
+                <div className=' col-start-1 col-end-3 row-start-1 row-end-10 border rounded-lg  h-full w-full bg-sky-300 flex flex-col justify-center items-center relative'>
 
                     <ButtonOne text="Click Me!" onClick={handleClick}/>
                     <ButtonTwo text="Click Me!" onClick={handleClick}/>

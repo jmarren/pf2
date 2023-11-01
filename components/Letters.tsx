@@ -119,7 +119,7 @@ import React, {
           ref={lettersGroup}
         >
             {loveJamesLetters.map((letter, index) => 
-                <primitive object={letter} position={[0, index, 0]} rotation={[0, 0 , Math.PI / 2]} castShadow/>
+                <primitive key={nodes[letter]} object={letter} position={[0, index, 0]} rotation={[0, 0 , Math.PI / 2]} castShadow/>
             )}
         </group> 
         <group
