@@ -15,7 +15,7 @@ function ButtonsGrid() {
 const handleClick = () => {
     console.log('click')
 }
-    // ABCDEFGHIJKLMNOP
+
     
     return (
         <main className='flex items-center justify-center mt-36 '>
