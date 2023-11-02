@@ -354,3 +354,10 @@ body, div, h1, p {
 .smooth-transition {
   transition: background-color 1s ease-in-out;
 }
+
+/* 
+.gradient-shadow {
+  box-shadow: 0 10px 12px 8px rgba(242, 126, 238, 0.75), 
+              0 10px 12px 10px rgb(110, 213, 248, 1); 
+} 
+*/

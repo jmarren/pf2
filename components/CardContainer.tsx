@@ -37,7 +37,7 @@ const CardContainer: React.FC <CardContainerProps> = ({topFinal, animation, chil
     return (
         <div
         ref={cardRef}
-        className="absolute top-[-34vh]  h-1/3 min-h-[200px] bg-sky-100 rounded-lg  transition-all shadow-lg hover:scale-105 duration-300
+        className="absolute top-[-34vh]  h-1/3 min-h-[200px] bg-sky-100 rounded-lg hover:shadow-sky-200 transition-all shadow-2xl gradient-shadow hover:shadow-2xl hover:scale-105 duration-300
         w-[75vw] ml-[12.5vw]
         min-[450px]:w-[60vw] min-[450px]:ml-[20vw]
         min-[700px]:w-[50vw] min-[750px]:ml-[25vw]
