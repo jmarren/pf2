@@ -90,7 +90,7 @@ const loadFontAndDrawDots = useCallback(() => {
         if (!ctx) return;
         
 
-          const path = font.getPath(text, 0, fontSize , fontSize);
+          const path = font.getPath(text, 0, fontSize  , fontSize );
           const oneData = path.toSVG(0); // This is a string representation of SVG
           const bbox = path.getBoundingBox();
          
@@ -103,7 +103,7 @@ const loadFontAndDrawDots = useCallback(() => {
   
           const points = [];
           const outsidePoints = [];
-          const density = 1
+          const density = 100 / fontSize;
           const interval = 200;
           // const interval = 5000 / ((bbox.x2 - bbox.x1) * (bbox.y2 - bbox.y1) / (density * density));
           const chanceToDrawOutside = 0.0; // 20% chance to draw a point outside the path

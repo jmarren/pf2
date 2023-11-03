@@ -46,7 +46,7 @@ function Page() {
                 </Suspense >
               <div className='w-[95.5vw] h-[95.5vh]  top-[2.25vh] left-[2.25vw] relative pointer-events-none'>
               <div className='h-10 min-[320px]:h-12 sm:h-16  md:h-28  justify-between top-0 flex flex-row'>
-                  <TextCanvas ref={ref2} fontSize={100} textColor={'#98a3a1'} text={'John Marren - Web Developer'} header={true} />
+                  <TextCanvas ref={ref2} fontSize={150} textColor={'#98a3a1'} text={'John Marren - Web Developer'} header={true} />
               </div>
               <div className='flex flex-row ml-[50vw] sm:ml-[55vw] '>
                 <div onClick={startAllClearing} className='flex flex-row h-10 cursor-pointer pointer-events-auto'><TextCanvas  ref={ref3} fontSize={150} text={'Projects'} textColor={'#98a3a1'} header={false} />
