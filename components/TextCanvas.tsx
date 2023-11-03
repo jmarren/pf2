@@ -179,16 +179,6 @@ useEffect(() => {
 const dynamicClass = header ? 'w-[300px] h-[40px] min-[320px]:w-[350px] min-[320px]:h-[50px] min-[450px]:h-[70px] min-[450px]:w-[500px] sm:w-[600px] sm:h-[90px] md:w-[750px] md:h-[120px]' 
         : ' w-[30px] h-[15px] min-[320px]:w-[65px] min-[320px]:h-[30px] min-[450px]:w-[80px] min-[450px]:h-[40px] sm:w-[100px] sm:h-[50px] md:w-[120px] md:h-[60px] lg:w-[150px] lg:h-[75px] '
 
-// useImperativeHandle(ref,  () => ({
-//   startClearing: () => {
-//     if (animationRef.current !== undefined && animationRef.current !== null) {
-//       cancelAnimationFrame(animationRef.current);
-//     }
-//     setDestruct(true);    
-//   },
-  
-// }));
-
 
 useImperativeHandle(ref, () => ({
   ...canvasRef.current,  // assuming canvasRef is a ref to the canvas element

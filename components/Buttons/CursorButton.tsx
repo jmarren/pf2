@@ -62,7 +62,7 @@ const CursorButton: FC<Props> = ({ text }) => {
         key={hue + index.toString()}
         id='cursors'
         style={{
-          zIndex: 50,
+          zIndex: 400,
           position: 'fixed',
           left: coords.x,
           top: coords.y,

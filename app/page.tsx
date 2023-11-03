@@ -69,8 +69,4 @@ function Page() {
       );
 }
 
-export default Page;
-  
-  // const mainRef = useRef<React.RefObject<CustomCanvasHandle>>(null)
-  // const canvasRefs = Array.from({ length: 10 }, () => React.createRef<CustomCanvasHandle>());
-
+export default React.memo(Page);

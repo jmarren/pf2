@@ -36,12 +36,13 @@ const SpinningButton: React.FC = () => {
 
 
     return (
-        <div className='m-3 w-5/6 h-64' ref={spinButtonContainer}> 
+        <div className='m-3 w-5/6 h-64 z-[300]' ref={spinButtonContainer}> 
         <button
             className='bg-orange-500 rounded-xl text-white ring-4 ring-inset ring-orange-400 w-full h-full  hover:scale-75 hover:bg-orange-400 hover:text-black'
             onClick={toggleSpin}
             style={{
                 transition: 'transform 0.5s',
+                zIndex: `${isRunning ? '500' : '100'}`,
                 transform: `${isRunning ? 'rotate(360deg)' : 'rotate(0deg)'} translate(${isRunning ? '0, 300px' : '0 , 0'})`
 
             }}

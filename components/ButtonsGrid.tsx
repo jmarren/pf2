@@ -22,7 +22,7 @@ const handleClick = () => {
             
             <section className='grid grid-rows-9 grid-cols-5  h-[450px] w-[550px] max-w-[550px] max-h-[500px] rounded-lg shadow-2xl ' >
 
-                <div className=' col-start-1 col-end-3 row-start-1 row-end-10 border rounded-lg  h-full w-full bg-sky-300 flex flex-col justify-center items-center relative'>
+                <div className=' col-start-1 col-end-3 row-start-1 row-end-10 border rounded-lg  h-full w-full  bg-sky-300 flex flex-col justify-center items-center relative'>
 
                     <ButtonOne text="Click Me!" onClick={handleClick}/>
                     <ButtonTwo text="Click Me!" onClick={handleClick}/>
@@ -30,9 +30,9 @@ const handleClick = () => {
                     <CursorButton text="Click Me!" />
                     <SpotlightButton text='Click Me!' onClick={handleClick}/>
                 </div>
-                <div className='col-start-3 col-end-6 row-start-1 row-end-10 bg-sky-300 border rounded-lg pb-4 h-full w-full flex flex-row justify-center items-center pt-2'>
+                <div className='col-start-3 col-end-6 row-start-1 row-end-10 bg-sky-300 border rounded-lg pb-4 h-full w-full flex flex-row  justify-center items-center pt-2'>
 
-                    <div>
+                    <div className='z-[200]'>
                     <SpinningButton />
                     <ColorButton />
                     </div >

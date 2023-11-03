@@ -15,12 +15,28 @@ const config: Config = {
       },
       keyframes: {
         fall1: {
-          '0%': { top: '-68vh' },
-          '100%': { top: '12%' },
+          '0%': {
+            top: '-68vh',
+            opacity: '0',
+            visibility: 'hidden'
+          },
+          '100%': {
+             top: '12%',
+             opacity: '1',
+             visibility: 'visible'
+          },
         },
         fall2: {
-          '0%': { top: '-34vh' },
-          '100%': { top: '51%' },
+          '0%': { 
+            top: '-34vh',   
+            opacity: '0',
+            visibility: 'hidden'
+           },
+          '100%': { 
+            top: '51%',
+            opacity: '1',
+            visibility: 'visible'
+           },
         },
       },
       animation: {
