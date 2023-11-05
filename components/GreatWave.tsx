@@ -1,8 +1,10 @@
 'use client'
 import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import { OffscreenImgData, Dimensions } from '@/types';
+import { usePaint } from './PaintContext';
   
 const GreatWave = forwardRef<HTMLCanvasElement>((_, ref) => {
+    const {paint}  = usePaint();
     const radius = 25;
     const canvasRef = useRef< HTMLCanvasElement | null>(null);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
@@ -354,7 +356,7 @@ const GreatWave = forwardRef<HTMLCanvasElement>((_, ref) => {
 
     }, [destruct])
 
-    return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute ' ></canvas>;
+    return <canvas ref={canvasRef}  className='rounded-md h-full min-h-screen w-full absolute ' ></canvas> ;
 });
 
 GreatWave.displayName = 'GreatWave';

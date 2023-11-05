@@ -361,3 +361,211 @@ body, div, h1, p {
               0 10px 12px 10px rgb(110, 213, 248, 1); 
 } 
 */
+
+.block-pattern {
+    width: 100%;
+    height: 100%;
+    --s: 82px;
+    --c1: #fb8500;
+    --c2: #ffbe1a;
+    --c3: #edeae9;
+  
+    --_g: var(--c3) 0 120deg, #0000 0;
+    background: conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)),
+      conic-gradient(from 120deg at 50% calc(200% / 3), var(--_g)),
+      conic-gradient(
+        from 60deg at calc(200% / 3),
+        var(--c3) 60deg,
+        var(--c2) 0 120deg,
+        #0000 0
+      ),
+      conic-gradient(from 180deg at calc(100% / 3), var(--c1) 60deg, var(--_g)),
+      linear-gradient(
+        90deg,
+        var(--c1) calc(100% / 6),
+        var(--c2) 0 50%,
+        var(--c1) 0 calc(500% / 6),
+        var(--c2) 0
+      );
+    background-size: calc(1.732 * var(--s)) var(--s);
+  }  
+
+
+
+  @font-face {
+    font-family: 'Ubuntu';
+    src: url('/Ubuntu-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Sora';
+    src: url('/Sora-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
+  .dots::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, black 10%, transparent 10%);
+    background-size: 30px 30px;
+  }
+  
+
+
+
+  .social-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    box-shadow: 0px 0px 15px #00000027;
+    padding: 15px 10px;
+    border-radius: 2.5em 2.5em 0 0;
+  }
+  
+  .social-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0 10px;
+    background-color: #fff;
+    box-shadow: 0px 0px 4px #00000027;
+    transition: 0.3s;
+  }
+  
+  .social-button:hover {
+    background-color: #f2f2f2;
+    box-shadow: 0px 0px 6px 3px #00000027;
+  }
+  
+  .social-buttons svg {
+    transition: 0.3s;
+    height: 20px;
+  }
+  
+  .github {
+    background-color: #333;
+  }
+  
+  .github svg {
+    width: 25px;
+    height: 25px;
+    fill: #f2f2f2;
+  }
+  
+  .github:hover svg {
+    fill: #333;
+  }
+  
+  .linkedin {
+    background-color: #0077b5;
+  }
+  
+  .linkedin svg {
+    fill: #f2f2f2;
+  }
+  
+  .linkedin:hover svg {
+    fill: #0077b5;
+  }
+  
+  .social-button-resume {
+    cursor: pointer;
+    font-size: 14px;
+    fill: 'blue';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
+    background-color: 'blue';
+    box-shadow: 0px 0px 4px #00000027;
+    transition: 0.3s;
+  }
+
+
+  .social-button-resume:hover {
+    font-size: 10px;
+    color: 'white';
+    background-color: #f2f2f2;
+    box-shadow: 0px 0px 6px 3px #00000027;
+  }
+  
+
+
+
+  .btn-class-name {
+    --primary: 255, 90, 120;
+    --secondary: 150, 50, 100;
+    width: 60px;
+    height: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    touch-action: manipulation;
+    /* outline: 10px solid rgb(var(--primary), .5); */
+    border-radius: 100%;
+    position: relative;
+    transition: .3s;
+  }
+  
+  .btn-class-name .back {
+    background: rgb(var(--secondary));
+    border-radius: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .btn-class-name .front {
+    background: linear-gradient(0deg, rgba(var(--primary), .6) 20%, rgba(var(--primary)) 50%);
+    box-shadow: 0 .5em 1em -0.2em rgba(var(--secondary), .5);
+    border-radius: 100%;
+    position: absolute;
+    border: 1px solid rgb(var(--secondary));
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: inherit;
+    transform: translateY(-15%);
+    transition: .15s;
+    color: rgb(var(--secondary));
+  }
+  
+  .btn-class-name:active .front {
+    transform: translateY(0%);
+    box-shadow: 0 0;
+  }
+
+  .transform {
+    transition: transform 0.5s ease;
+  }
+  
+  .translate-x-full {
+    transform: translateX(100vw);
+  }
+ 
+  .translate-to-bottom-left {
+    transform: translateX(-100vw) translateY(100vh);
+  }
+  

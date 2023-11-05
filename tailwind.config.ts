@@ -16,24 +16,24 @@ const config: Config = {
       keyframes: {
         fall1: {
           '0%': {
-            top: '-68vh',
+            transform: 'translateY(-100vh)',
             opacity: '0',
             visibility: 'hidden'
           },
           '100%': {
-             top: '12%',
+             transform: 'translateY(0)',
              opacity: '1',
              visibility: 'visible'
           },
         },
         fall2: {
           '0%': { 
-            top: '-34vh',   
+            transform: 'translateY(-100vh)',
             opacity: '0',
             visibility: 'hidden'
            },
           '100%': { 
-            top: '51%',
+            transform: 'translateY(0)',
             opacity: '1',
             visibility: 'visible'
            },
