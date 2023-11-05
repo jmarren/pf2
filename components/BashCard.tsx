@@ -6,7 +6,7 @@ function BashCard() {
     const {paint} = usePaint();
     return ( <> 
     
-    <aside className={`bg-sky-100 text-slate-500 m-4 p-4 px-6 pb-6 rounded-lg w-full max-w-md font-mono  transition transform ${paint ? 'translate-x-full':'' }`}>
+    <aside className={`bg-sky-100 text-slate-500 m-4 p-4 px-6 pb-6 rounded-lg w-full max-w-md font-mono  shadow-lg transition transform ${paint ? 'translate-x-full':'' }`}>
   <div className="flex justify-between items-center">
     <div className="flex space-x-2 text-red-500">
       <div className="w-3 h-3 rounded-full bg-red-500"></div>

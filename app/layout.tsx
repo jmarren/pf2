@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { FontProvider } from '@/components/FontContext'
+import { PaintProvider } from '@/components/PaintContext'
 import localFont from 'next/font/local'
 
  
@@ -30,8 +30,8 @@ export default function RootLayout({
 
     <html lang="en">
       <body className={MigaeSemibold.className}>
-        <FontProvider>{children}
-          </FontProvider></body>
+        <PaintProvider>{children}
+          </PaintProvider></body>
     </html></>
   )
 }

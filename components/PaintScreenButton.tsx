@@ -32,7 +32,7 @@ function PaintScreenButton() {
     >
     <div 
            ref={ButtonRef}
-        className='relative bg-blue-400 w-60 h-20
+        className=' shadow-lg relative bg-blue-400 w-60 h-20
         rounded-full font-[Sora] text-white flex justify-items-start items-center'
 >
     <div className='hover:scale-105 ml-6 mb-5 m-3 z-10'> 
