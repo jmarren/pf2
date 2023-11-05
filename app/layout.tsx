@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { PaintProvider } from '@/components/PaintContext'
 import localFont from 'next/font/local'
+import { Analytics } from '@vercel/analytics/react';
+
 
  
 // Font files can be colocated inside of `app`
@@ -31,6 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={MigaeSemibold.className}>
         <PaintProvider>{children}
+        <Analytics />
           </PaintProvider></body>
     </html></>
   )
