@@ -39,22 +39,22 @@ function Page() {
             <SocialButtons />
 
         <div className='absolute w-full h-full px-10 pb-10 pt-16 overflow-scroll'> {/* GRID CONTAINER */}
-            <div className='min-[425px]:grid min-[425px]:grid-cols-9  h-full min-[425px]:grid-rows-4'> {/* GRID ITSELF */}
+            <div className='min-[750px]:grid min-[750px]:grid-cols-9  h-full min-[750px]:grid-rows-4'> {/* GRID ITSELF */}
 
-                <div className=' min-[425px]:col-start-1 min-[425px]:col-end-6 min-[425px]:row-start-1 min-[425px]:row-end-3 flex justify-center min-h-[300px]'>
+                <div className=' min-[750px]:col-start-1 min-[750px]:col-end-6 min-[750px]:row-start-1 min-[750px]:row-end-3 flex justify-center min-h-[300px]'>
 
                     <BashCard />
 
 
 
                 </div>
-                <div className='flex items-center justify-center mt-6 min-[425px]:mt-0 min-[425px]:col-start-1 min-[425px]:col-end-6 min-[425px]:row-start-3 min-[425px]:row-end-4'>
+                <div className='flex items-center justify-center mt-6 min-[750px]:mt-0 min-[750px]:col-start-1 min-[750px]:col-end-6 min-[750px]:row-start-3 min-[750px]:row-end-4'>
                     <PaintScreenButton />
                 
                 </div>
 
 
-                <div className=' w-full min-[425px]:col-span-4 min-[425px]:row-span-2  mt-6 min-[425px]:mt-0'>
+                <div className=' w-full min-[750px]:col-span-4 min-[750px]:row-span-2  mt-6 min-[750px]:mt-0'>
                       <CardContainer topFinal={'12%'} animation={'animate-fall1'} >
                      <Card>
                      <div 
@@ -68,7 +68,7 @@ function Page() {
 
 
             
-            <div className='w-full min-[425px]:col-start-6 min-[425px]:col-end-10 min-[425px]:row-start-3 min-[425px]:row-end-5 mt-6 min-[425px]:mt-0 mb-24 min-[425px]:mb-0'>
+            <div className='w-full min-[750px]:col-start-6 min-[750px]:col-end-10 min-[750px]:row-start-3 min-[750px]:row-end-5 mt-6 min-[750px]:mt-0 mb-24 min-[750px]:mb-0'>
             
              <CardContainer topFinal={'51%'} animation={'animate-fall2'} >
                      <Card>
