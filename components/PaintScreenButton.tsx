@@ -28,7 +28,7 @@ function PaintScreenButton() {
         transition: 'transform 0.5s ease',
      }}
      className={` 
-        transition-transform ${ paint ? ' sticky translate-to-bottom-left z-50' : 'relative z-10'}`} 
+        transition-transform ${ paint ? ' sticky translate-to-bottom-left z-50' : 'relative z-0'}`} 
     >
     <div 
            ref={ButtonRef}

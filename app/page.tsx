@@ -16,7 +16,7 @@ function Page() {
     <> 
         <div className="h-screen w-full dots bg-yellow-600 fixed box-content" >
             <WaveContainer /> 
-            <div className='fixed w-full h-16 border-4 border-white z-10 bg-red-400 box-border flex text-3xl text-white font-[Sora] shadow-xl'>
+            <div className='fixed w-full h-16 border-4 border-white z-10 bg-red-400 box-border flex text-lg min-[700px]:text-2xl text-white font-[Sora] shadow-xl'>
                 <div className='w-1/2 flex justify-start'>
                     <div className='bg-blue-400  px-10 flex items-center justify-start border-r-4 border-white '>
                         John Marren
@@ -38,23 +38,23 @@ function Page() {
             
             <SocialButtons />
 
-        <div className='absolute w-full h-full px-10 pb-10 pt-16 '> {/* GRID CONTAINER */}
-            <div className='grid grid-cols-9  h-full grid-rows-4  '> {/* GRID ITSELF */}
+        <div className='absolute w-full h-full px-10 pb-10 pt-16 overflow-scroll'> {/* GRID CONTAINER */}
+            <div className='min-[425px]:grid min-[425px]:grid-cols-9  h-full min-[425px]:grid-rows-4'> {/* GRID ITSELF */}
 
-                <div className='h-full col-start-1 col-end-6 row-start-1 row-end-3 flex justify-center'>
+                <div className=' min-[425px]:col-start-1 min-[425px]:col-end-6 min-[425px]:row-start-1 min-[425px]:row-end-3 flex justify-center min-h-[300px]'>
 
                     <BashCard />
 
 
 
                 </div>
-                <div className='flex items-center justify-center h-full col-start-1 col-end-6 row-start-3 row-end-4'>
+                <div className='flex items-center justify-center mt-6 min-[425px]:mt-0 min-[425px]:col-start-1 min-[425px]:col-end-6 min-[425px]:row-start-3 min-[425px]:row-end-4'>
                     <PaintScreenButton />
                 
                 </div>
 
 
-                <div className='h-full w-full col-span-4 row-span-2'>
+                <div className=' w-full min-[425px]:col-span-4 min-[425px]:row-span-2  mt-6 min-[425px]:mt-0'>
                       <CardContainer topFinal={'12%'} animation={'animate-fall1'} >
                      <Card>
                      <div 
@@ -68,7 +68,7 @@ function Page() {
 
 
             
-            <div className='h-full w-full col-start-6 col-end-10 row-start-3 row-end-5 '>
+            <div className='w-full min-[425px]:col-start-6 min-[425px]:col-end-10 min-[425px]:row-start-3 min-[425px]:row-end-5 mt-6 min-[425px]:mt-0 mb-24 min-[425px]:mb-0'>
             
              <CardContainer topFinal={'51%'} animation={'animate-fall2'} >
                      <Card>
