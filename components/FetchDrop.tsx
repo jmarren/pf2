@@ -5,11 +5,11 @@ import {useEffect} from 'react'
 
 const FetchDrop = () => {
     useEffect(() => {
-        const dropletIP = '146.190.170.211';
-        const dropletPort = '3001';
+        // const dropletIP = '146.190.170.211';
+        // const dropletPort = '3001';
     
         // Use the `fetch` API with template literals
-        fetch(`http://${dropletIP}:${dropletPort}/`)
+        fetch(`https://www.mechanicalturk.one/api/`)
           .then(response => {
             if (response.ok) {
               return response.text();
