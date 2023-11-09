@@ -48,7 +48,7 @@ const CardContainer: React.FC <CardContainerProps> = ({topFinal, animation, chil
         <div
         ref={cardRef}
         className={` top-[-34vh] m-4  bg-sky-100 rounded-lg hover:shadow-sky-200 transition-all shadow-2xl gradient-shadow hover:shadow-2xl hover:scale-105 duration-300
-        ${isMounted ? 'translate-y-0 opacity-100 visible' : '-translate-y-full opacity-0 invisible'} ${paint ? 'translate-x-full':'' }
+        ${isMounted ? 'translate-y-0 opacity-100 visible ' : '-translate-y-full opacity-0 invisible absolute'} ${paint ? 'translate-x-full':'' }
         `}
         >
        {children}

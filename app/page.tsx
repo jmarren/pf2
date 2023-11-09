@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import CardContainer from '@/components/CardContainer';
 import Card from '@/components/PortfolioCard'
@@ -7,6 +9,7 @@ import { PaintProvider } from '@/components/PaintContext';
 import PaintScreenButton from '@/components/PaintScreenButton';
 import WaveContainer from '@/components/WaveContainer';
 import SocialButtons from '@/components/SocialButtons';
+import FetchDrop from '@/components/FetchDrop';
 
 
 function Page() {
@@ -14,7 +17,9 @@ function Page() {
     return (
 <PaintProvider >
     <> 
+    
         <div className="h-screen w-full dots bg-yellow-600 fixed box-content" >
+            
             <WaveContainer /> 
             <div className='fixed w-full h-16 border-4 border-white z-10 bg-red-400 box-border flex text-lg min-[700px]:text-2xl text-white font-[Sora] shadow-xl'>
                 <div className='w-1/2 flex justify-start'>
@@ -22,7 +27,7 @@ function Page() {
                         John Marren
                     </div>
                 </div>
-                
+                <FetchDrop />
                 <div className='w-1/2 flex justify-end'>
                     <div className='bg-blue-400  flex items-center justify-end border-l-4 border-white px-10'> 
                         Web Developer
@@ -40,13 +45,8 @@ function Page() {
 
         <div className='absolute w-full h-full px-10 pb-10 pt-16 overflow-scroll'> {/* GRID CONTAINER */}
             <div className='min-[750px]:grid min-[750px]:grid-cols-9  h-full min-[750px]:grid-rows-4'> {/* GRID ITSELF */}
-
                 <div className=' min-[750px]:col-start-1 min-[750px]:col-end-6 min-[750px]:row-start-1 min-[750px]:row-end-3 flex justify-center min-h-[300px]'>
-
                     <BashCard />
-
-
-
                 </div>
                 <div className='flex items-center justify-center mt-6 min-[750px]:mt-0 min-[750px]:col-start-1 min-[750px]:col-end-6 min-[750px]:row-start-3 min-[750px]:row-end-4'>
                     <PaintScreenButton />
@@ -79,24 +79,6 @@ function Page() {
             
             </div>
         </div> 
-
-
-
-
-
-
-
-
-
-{/*
-  
-  
-    */}
-
-
-
-
-
         </div>
         </div>
         </>
