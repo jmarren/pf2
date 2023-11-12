@@ -9,7 +9,7 @@ const FetchDrop = () => {
         // const dropletPort = '3001';
     
         // Use the `fetch` API with template literals
-        fetch(`https://www.mechanicalturk.one/api/`)
+        fetch(`https://www.mechanicalturk.one/api/get-coords`)
           .then(response => {
             if (response.ok) {
               return response.text();
