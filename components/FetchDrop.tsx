@@ -1,26 +1,38 @@
 'use client';
 
 
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 
 const FetchDrop = () => {
+  const [temp, setTemp] = useState<string | null>(null);
+  const [city, setCity] = useState<string | null>(null)
+  const [region, setRegion] = useState<string | null>(null)
+  const [country,setCountry] = useState<string | null>(null)
+
+
     useEffect(() => {
-        // const dropletIP = '146.190.170.211';
-        // const dropletPort = '3001';
-    
-        // Use the `fetch` API with template literals
-        fetch(`https://www.mechanicalturk.one/api/get-coords`)
+            fetch(`https://www.mechanicalturk.one/api/get-coords`)
           .then(response => {
             if (response.ok) {
-              return response.text();
+              return response.json();
             }
             throw new Error('N/A');
           })
-          .then(data => console.log(data))
+          .then(data => {
+            console.log(data)
+            setTemp(data.temp);
+            setCity(data.city);
+            setRegion(data.region);
+            setCountry(data.country);
+          } )
           .catch(error => console.error('Error:', error));
       }, []);
 
-    return (<></>);
+    return (<>{temp ?   <div className='text-[0.4em] w-full justify-center items-center hidden min-[560px]:flex '>
+      <pre>{city}, {region}  {temp}°F</pre>
+    </div> : <></>}
+  
+    </>);
 }
 
 export default FetchDrop;

@@ -21,7 +21,7 @@ function Page() {
         <div className="h-screen w-full dots bg-yellow-600 fixed box-content" >
             
             <WaveContainer /> 
-            <div className='fixed w-full h-16 border-4 border-white z-10 bg-red-400 box-border flex text-lg min-[700px]:text-2xl text-white font-[Sora] shadow-xl'>
+            <div className='fixed w-full h-16 border-4 border-white z-10 bg-red-400 box-border flex text-sm min-[700px]:text-md min-[950px]:text-lg text-white font-[Sora] shadow-xl'>
                 <div className='w-1/2 flex justify-start'>
                     <div className='bg-blue-400  px-10 flex items-center justify-start border-r-4 border-white '>
                         John Marren
@@ -78,9 +78,11 @@ function Page() {
             
             
             </div>
+            <div className='h-10 w-full  min-[750px]:hidden'></div>
         </div> 
         </div>
         </div>
+        
         </>
         </PaintProvider> 
      );
