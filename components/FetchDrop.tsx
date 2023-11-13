@@ -28,7 +28,7 @@ const FetchDrop = () => {
           .catch(error => console.error('Error:', error));
       }, []);
 
-    return (<>{temp !== null ?   <div className='text-[0.4em] w-full justify-center items-center hidden min-[560px]:flex '>
+    return (<>{temp !== null && city !== null && region !== null && temp !== undefined && city !== undefined && region !== undefined && city !== '' && temp !== '' ?   <div className='text-[0.4em] w-full justify-center items-center hidden min-[560px]:flex '>
       <pre>{city}, {region}  {temp}°F</pre>
     </div> : <></>}
   
