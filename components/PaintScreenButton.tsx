@@ -6,29 +6,30 @@ import {useRef, useState, useEffect} from 'react';
 function PaintScreenButton() {
     const {paintPage, paint} = usePaint();
     const ButtonRef = useRef<HTMLDivElement | null>(null);
-    const [transformValue, setTransformValue] = useState<string>('translateX(0) translateY(0)');
+   //  const [transformValue, setTransformValue] = useState<string>('translateX(0) translateY(0)');
 
-    useEffect(() => {
-      if (paint && ButtonRef.current) {
-        const currentWidth = ButtonRef.current.getBoundingClientRect().width; 
-        const currentHeight = ButtonRef.current.getBoundingClientRect().height; 
-        const positionX = ButtonRef.current.getBoundingClientRect().x ;
-        const positionY = ButtonRef.current.getBoundingClientRect().y + currentHeight;
-        setTransformValue(`translateX(-${positionX}px) translateY(calc(100vh - ${positionY}px))`);
-    } else {
-        setTransformValue('translateX(0) translateY(0)');
-      }
-    }, [paint]);
+   //  useEffect(() => {
+   //    if (paint && ButtonRef.current) {
+   //      const currentWidth = ButtonRef.current.getBoundingClientRect().width; 
+   //      const currentHeight = ButtonRef.current.getBoundingClientRect().height; 
+   //      const positionX = ButtonRef.current.getBoundingClientRect().x ;
+   //      const positionY = ButtonRef.current.getBoundingClientRect().y + currentHeight;
+   //      setTransformValue(`translateX(-${positionX}px) translateY(calc(100vh - ${positionY}px))`);
+   //  } else {
+   //      setTransformValue('translateX(0) translateY(0)');
+   //    }
+   //  }, [paint]);
 
 
     return (  
     <div 
-     style={{
-        transform: transformValue,
-        transition: 'transform 0.5s ease',
-     }}
-     className={` 
-        transition-transform ${ paint ? ' fixed translate-to-bottom-left z-50' : 'relative z-0'}`} 
+    className='fixed bottom-0 left-0 z-50'
+   //   style={{
+   //      transform: transformValue,
+   //      transition: 'transform 0.5s ease',
+   //   }}
+   //   className={` 
+   //      transition-transform ${ paint ? ' fixed translate-to-bottom-left z-50' : 'relative z-0'}`} 
     >
     <div 
            ref={ButtonRef}
