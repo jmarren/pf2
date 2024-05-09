@@ -16,27 +16,27 @@ const config: Config = {
       keyframes: {
         fall1: {
           '0%': {
-            transform: 'translateY(-100vh)',
+            // transform: 'translateY(-100vh)',
             opacity: '0',
             visibility: 'hidden'
           },
           '100%': {
-             transform: 'translateY(0)',
-             opacity: '1',
-             visibility: 'visible'
+            // transform: 'translateY(0)',
+            opacity: '1',
+            visibility: 'visible'
           },
         },
         fall2: {
-          '0%': { 
-            transform: 'translateY(-100vh)',
+          '0%': {
+            // transform: 'translateY(-100vh)',
             opacity: '0',
             visibility: 'hidden'
-           },
-          '100%': { 
-            transform: 'translateY(0)',
+          },
+          '100%': {
+            // transform: 'translateY(0)',
             opacity: '1',
             visibility: 'visible'
-           },
+          },
         },
       },
       animation: {
