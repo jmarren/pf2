@@ -355,12 +355,7 @@ body, div, h1, p {
   transition: background-color 1s ease-in-out;
 }
 
-/* 
-.gradient-shadow {
-  box-shadow: 0 10px 12px 8px rgba(242, 126, 238, 0.75), 
-              0 10px 12px 10px rgb(110, 213, 248, 1); 
-} 
-*/
+
 
 .block-pattern {
     width: 100%;
@@ -576,4 +571,63 @@ body, div, h1, p {
    /* word-wrap: break-word;  Breaks long words if necessary */
     font-size: calc(1vw + 1vh + .5vmin); /* Example - adjust as needed */
     -webkit-text-size-adjust: none
+ }
+
+  #logo {
+    padding-right: 10px;
+    background-color: peachpuff;
+    width: 250px;
+    height: 90px;
+    border: 5px solid black;
+    font-family: Parson;
+    font-style: italic;
+    font-size: 50px;
+    text-align: center;
+    box-shadow: 5px 5px black;
+    border-radius: 10px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    transform: skew(-5deg, -5deg);
   }
+
+  #top-blue-bar {
+    border-radius: 0 10px 10px 0px;
+    background-color: skyblue;
+    height: 65%;
+    flex-grow: 1;
+    border-top: 3px solid black;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
+    box-shadow: 5px 5px black;
+  }
+
+  #logo-text {
+    text-align: center;
+    color: black;
+  }
+
+/**/
+/* #ask-away-card:hover { */
+/*   transform: rotateY(180deg); */
+/*   padding-left: 1rem; */
+/* } */
+/**/
+/* #ask-away-card { */
+/*   overflow: hidden; */
+/* } */
+/**/
+/**/
+/* #ask-away-card:hover > #card-front { */
+/*   transform: scaleX(2); */
+/* } */
+
+/* #ask-away-card > #about-me-button { */
+/*   display: none; */
+/* } */
+/**/
+/* #ask-away-card:hover > #about-me-button { */
+/*   display: block; */
+/* } */
+/**/
+

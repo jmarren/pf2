@@ -1,3 +1,4 @@
+import { transform } from 'next/dist/build/swc'
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
@@ -38,11 +39,20 @@ const config: Config = {
             visibility: 'visible'
           },
         },
+        slideOutRight: {
+          "0%": {
+            transform: "translateX(-50%)"
+          },
+          "100%": {
+            transform: "translateX(0%)"
+          },
+        }
       },
-      animation: {
-        fall1: 'fall1 2s cubic-bezier(0.68, -0.55, 0.27, 1.55)',
-        fall2: 'fall2 2s cubic-bezier(0.68, -0.55, 0.27, 1.55)',
-      },
+    },
+    animation: {
+      fall1: 'fall1 2s cubic-bezier(0.68, -0.55, 0.27, 1.55)',
+      fall2: 'fall2 2s cubic-bezier(0.68, -0.55, 0.27, 1.55)',
+      slideOutRight: "slideOutRight 0.5s forwards",
     },
   },
   plugins: [],

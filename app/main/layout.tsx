@@ -1,27 +1,16 @@
 'use client'
-
 import { PaintProvider } from '@/components/PaintContext';
 import PaintScreenButton from '@/components/PaintScreenButton';
 import WaveContainer from '@/components/WaveContainer';
 import SocialButtons from '@/components/SocialButtons';
-import FetchDrop from '@/components/FetchDrop';
-import { useState } from "react"
-
-
-function Page() {
-  const [askAwayHovered, setAskAwayHovered] = useState<boolean | null>(null)
-
-  const handleMouseOverAskAway = () => {
-    setAskAwayHovered(true)
-  }
-
-  const handleMouseLeaveAskAway = () => {
-    setAskAwayHovered(false)
-  }
 
 
 
-
+export default function MainLayout({
+  children, // will be a page or nested layout
+}: {
+  children: React.ReactNode
+}) {
   return (
     <PaintProvider>
       <>
@@ -35,7 +24,6 @@ function Page() {
                 John Marren
               </div>
             </div>
-            <FetchDrop />
             <div className='w-1/2 flex justify-end'>
               <div className='bg-blue-400  flex items-center justify-end border-l-4 border-white px-10'>
                 Web Developer
@@ -48,22 +36,12 @@ function Page() {
           <div className='z-10 w-full h-10 border-4 bg-red-400 border-white fixed bottom-0'></div>
 
           <SocialButtons />
+          {children}
 
         </div >
       </>
     </PaintProvider >
-  );
+  )
 }
-
-export default Page;
-
-
-
-
-
-
-
-
-
 
 

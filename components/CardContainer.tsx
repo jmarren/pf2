@@ -19,31 +19,7 @@ const CardContainer: React.FC<CardContainerProps> = ({ topFinal, animation, chil
   }, [])
 
 
-  // useEffect(() => {
-  //   // Wait for the parent to mount, then start the animation
-  //   const card = cardRef.current;
-  // const handleAnimationEnd = () => {
-  //   if (card) {
-  //     card.style.top = topFinal;
-  //     card.classList.remove(animation);  // Remove the animation class so it won't re-trigger
-  //   }
-  // };
-  //   const timer = setTimeout(() => {
-  //     if (card) {
-  //       card.classList.add(animation);
-  //       card.addEventListener('animationend', handleAnimationEnd);
-  //     }
-  //   }, 100); // Delay of 100ms to ensure parent has mounted
-  //
-  //   // Cleanup
-  //   return () => {
-  //     clearTimeout(timer);
-  //     if (card) {
-  //       card.removeEventListener('animationend', handleAnimationEnd);
-  //     }
-  //   };
-  // }, [animation, topFinal]);
-  //
+
   return (
     <div
       ref={cardRef}
