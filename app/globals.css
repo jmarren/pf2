@@ -400,6 +400,13 @@ body, div, h1, p {
     font-style: normal;
   }
 
+  @font-face{
+    font-family: 'Parson';
+    src: url("/Parson-ExtraBoldItalic.otf") format("opentype");
+    font-weight: ExtraBold;
+    font-style: Italic;
+  }
+
 
   .dots::before {
     content: "";
