@@ -37,7 +37,6 @@ export default function MainLayout({
 
           <SocialButtons />
           {children}
-
         </div >
       </>
     </PaintProvider >
