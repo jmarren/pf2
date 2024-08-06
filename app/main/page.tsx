@@ -37,14 +37,14 @@ export default function Page() {
                       <a href='https://ask-away.mechanicalturk.one' className="w-full bg-blue-500 text-white rounded-lg py-2 px-3 text-lg border-2 border-white hover:bg-blue-600" >
                         Visit
                       </a>
-                      <Link href="/main/ask-away" className="w-full  bg-blue-500 text-white rounded-lg py-2 px-3 text-lg border-2  border-white hover:bg-blue-600">
+                      <Link href="/main/askaway" className="w-full  bg-blue-500 text-white rounded-lg py-2 px-3 text-lg border-2  border-white hover:bg-blue-600">
                         About
                       </Link>
                     </div>
                   </div>
                   <div className="w-[50%] flex justify-center items-center ">
-                    <div id="logo">
-                      <div id="logo-text">Ask Away</div>
+                    <div id="logo" >
+                      <div id="logo-text" >Ask Away</div>
                     </div>
                   </div>
                 </div>
