@@ -4,6 +4,7 @@ import Link from 'next/link'
 import CardContainer from '@/components/CardContainer';
 import Card from '@/components/PortfolioCard'
 import LoveJames from '@/components/Love-James';
+import CustomKeyboard from '@/components/CustomKeyboard';
 import { useState } from "react"
 
 
@@ -23,10 +24,10 @@ export default function Page() {
   return (
     <div className='absolute w-full h-full px-10 pb-10 pt-16 overflow-scroll'>
 
-      <div className='min-[750px]:grid min-[750px]:grid-cols-9  h-full min-[750px]:grid-rows-4 '>
+      <div className='min-[750px]:grid min-[750px]:grid-cols-10  h-full min-[750px]:grid-rows-4 '>
 
         {/* Ask-Away */}
-        <div id="ask-away-card" className=' w-full min-[750px]:col-start-1 min-[750px]:col-end-6 min-[750px]:row-span-2 min-[1000px]:px-24 mt-6 min-[750px]:mt-0 pr-4'>
+        <div id="ask-away-card" className=' w-full min-[750px]:col-start-1 min-[750px]:col-end-6 min-[750px]:row-span-2 mt-6 min-[750px]:mt-0 pr-4'>
           {/* <div > */}
           <CardContainer topFinal={'12%'} animation={'animate-fall1'}>
             <Card>
@@ -67,21 +68,24 @@ export default function Page() {
 
 
         {/* TYPING GAME */}
-        <div className='w-full  min-[750px]:col-start-1 min-[750px]:col-end-6 min-[750px]:row-start-3 min-[750px]:row-end-5 mt-6 min-[750px]:mt-0 mb-24 min-[750px]:mb-0  min-[1000px]:px-24  pr-4'>
+        <div className='w-full col-start-1 col-end-3  min-[750px]:col-start-1 min-[750px]:col-end-6 min-[750px]:row-start-3 min-[750px]:row-end-5 mt-6 min-[750px]:mt-0 mb-24 min-[750px]:mb-0   pr-4'>
 
           {/* <div className='w-full flex items-center justify-center mt-16 min-[750px]:mt-0 min-[750px]:col-start-1 min-[750px]:col-end-5 min-[750px]:row-start-3 min-[750px]:row-end-4 border-2 border-white relative'> */}
           <CardContainer topFinal={'-10%'} animation={'animate-fall2'}>
             <Card>
               <div className='bg-blue-200  hover:bg-indigo-100 active:bg-sky-200 w-full h-full flex items-center justify-center rounded-b-lg text-center text-6xl text-blue-500 '>
-                <Link href='https://thetypinggame.com' className='w-full h-full flex items-center justify-center text-3xl md:text-5xl lg:text-7xl px-4'>
+                <Link href='https://thetypinggame.com' className='relative w-full h-full flex items-center flex-col gap-4 justify-center text-3xl md:text-5xl lg:text-7xl px-4'>
                   Typing Game
+                  <div className="w-[90%] h-1/2 ">
+                    <CustomKeyboard />
+                  </div>
                 </Link></div>
             </Card>
           </CardContainer>
         </div>
 
         {/* FUN WITH BUTTONS */}
-        <div className=' w-full min-[750px]:col-span-4 min-[750px]:row-span-2  mt-6 min-[750px]:mt-0 pr-4'>
+        <div className=' w-full min-[750px]:col-span-5 min-[750px]:row-span-2  mt-6 min-[750px]:mt-0 pr-4'>
           <CardContainer topFinal={'12%'} animation={'animate-fall1'}>
             <Card>
               <div className='bg-blue-200  hover:bg-indigo-100 active:bg-sky-200 w-full h-full flex items-center justify-center rounded-b-lg text-center text-6xl text-green-600'>
@@ -95,7 +99,7 @@ export default function Page() {
 
 
         {/* LOVE JAMES */}
-        <div className='w-full min-[750px]:col-start-6 min-[750px]:col-end-10 min-[750px]:row-start-3 min-[750px]:row-end-5 mt-6 min-[750px]:mt-0 mb-24 min-[750px]:mb-0 pr-4'>
+        <div className='w-full min-[750px]:col-span-5  min-[750px]:row-start-3 min-[750px]:row-end-5 mt-6 min-[750px]:mt-0 mb-24 min-[750px]:mb-0 pr-4'>
           <CardContainer topFinal={'51%'} animation={'animate-fall2'}>
             <Card>
               <LoveJames />
