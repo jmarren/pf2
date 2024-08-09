@@ -85,7 +85,7 @@ const CustomKeyboard = () => {
 
   return (
     <div className='w-full h-full text-gray-500'>
-      <div style={containerStyles} className='text-[0.2rem]  gap-0 min-[750px]:text-[0.4rem]  min-[1000px]:text-[0.4rem] min-[1400px]:text-[0.75rem] gap-[0.25rem] min-[750px]:gap-[0.1em] min-[1200px]:gap-[0.3rem]'>
+      <div style={containerStyles} className='text-[0.2rem]  gap-0 min-[750px]:text-[0.4rem]  min-[1000px]:text-[0.4rem] min-[1400px]:text-[0.75rem] min-[750px]:gap-[0.1em] min-[1200px]:gap-[0.3rem]'>
         <div
           className="key"
           style={{
