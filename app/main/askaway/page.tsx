@@ -53,9 +53,21 @@ const Page = () => {
           <div className="h-10"> </div>
           <div className=" bg-white p-10 rounded-lg max-w-[520px]">
             <h1 className="text-xl ">Results</h1>
+
             <p className="pb-4">
               The site currently only allows usernames from a fixed list. Check back soon for full functionality!
             </p>
+            <div className="pb-4">
+              <iframe
+                src="https://www.youtube.com/embed/saJIswjbRVs?si=Am4GWULkVleVD2YJ"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              >
+              </iframe>
+            </div>
             <div className="flex items-center">
               <button>
                 <a href='https://ask-away.mechanicalturk.one'
